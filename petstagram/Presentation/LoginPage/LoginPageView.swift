@@ -81,6 +81,9 @@ struct LoginPageView : View {
                         .stroke(Theme.Colors.dark2.opacity(0.3), lineWidth: 1)
                 )
                 .padding()
+                .onTapGesture {
+                    viewModel.signInWithGoogle()
+                }
             }
             .navigationDestination(isPresented: $authStateManager.isAuthenticated) {
                 ContentView()

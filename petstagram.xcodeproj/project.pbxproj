@@ -12,6 +12,8 @@
 		F075F4C82DBB4A44004AB71A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4C72DBB4A44004AB71A /* FirebaseAppDistribution-Beta */; };
 		F075F4FC2DBCF6F2004AB71A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4FB2DBCF6F2004AB71A /* FirebaseAuth */; };
 		F075F4FE2DBCF71F004AB71A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4FD2DBCF71F004AB71A /* FirebaseCore */; };
+		F075F50F2DBD07B9004AB71A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F075F50E2DBD07B9004AB71A /* GoogleSignIn */; };
+		F075F5112DBD07B9004AB71A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F075F5102DBD07B9004AB71A /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,9 +39,22 @@
 		F075F47E2DBB3334004AB71A /* petstagramUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = petstagramUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F075F5182DBD09DD004AB71A /* Exceptions for "petstagram" folder in "petstagram" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Supporting Files/Info.plist",
+			);
+			target = F075F4632DBB3331004AB71A /* petstagram */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F075F4662DBB3331004AB71A /* petstagram */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F075F5182DBD09DD004AB71A /* Exceptions for "petstagram" folder in "petstagram" target */,
+			);
 			path = petstagram;
 			sourceTree = "<group>";
 		};
@@ -62,9 +77,11 @@
 			files = (
 				F075F4C62DBB4A44004AB71A /* FirebaseAppCheck in Frameworks */,
 				F075F4FE2DBCF71F004AB71A /* FirebaseCore in Frameworks */,
+				F075F5112DBD07B9004AB71A /* GoogleSignInSwift in Frameworks */,
 				F075F4C42DBB4A44004AB71A /* FirebaseAnalytics in Frameworks */,
 				F075F4C82DBB4A44004AB71A /* FirebaseAppDistribution-Beta in Frameworks */,
 				F075F4FC2DBCF6F2004AB71A /* FirebaseAuth in Frameworks */,
+				F075F50F2DBD07B9004AB71A /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +155,8 @@
 				F075F4C72DBB4A44004AB71A /* FirebaseAppDistribution-Beta */,
 				F075F4FB2DBCF6F2004AB71A /* FirebaseAuth */,
 				F075F4FD2DBCF71F004AB71A /* FirebaseCore */,
+				F075F50E2DBD07B9004AB71A /* GoogleSignIn */,
+				F075F5102DBD07B9004AB71A /* GoogleSignInSwift */,
 			);
 			productName = petstagram;
 			productReference = F075F4642DBB3331004AB71A /* petstagram.app */;
@@ -223,6 +242,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F075F50D2DBD07A4004AB71A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F075F4652DBB3331004AB71A /* Products */;
@@ -427,6 +447,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"petstagram/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "petstagram/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -455,6 +476,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"petstagram/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "petstagram/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -591,6 +613,14 @@
 				minimumVersion = 11.12.0;
 			};
 		};
+		F075F50D2DBD07A4004AB71A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -618,6 +648,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		F075F50E2DBD07B9004AB71A /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F075F50D2DBD07A4004AB71A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		F075F5102DBD07B9004AB71A /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F075F50D2DBD07A4004AB71A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

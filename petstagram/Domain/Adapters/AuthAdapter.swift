@@ -6,6 +6,7 @@
 //
 
 import FirebaseAuth
+import GoogleSignIn
 
 final class AuthUseCaseAdapter: AuthUseCases {
     private let repository: Repositories
@@ -16,5 +17,9 @@ final class AuthUseCaseAdapter: AuthUseCases {
     
     func signIn(email: String, password: String) async throws -> User {
         return try await repository.signIn(email: email, password: password)
+    }
+    
+    func signInWithGoogle() async throws -> User {
+        return try await repository.signInWithGoogle()
     }
 } 

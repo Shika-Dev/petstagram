@@ -7,13 +7,13 @@ final class DIContainer {
     private init() {}
     
     // MARK: - Network
-    // lazy var networkService: NetworkServiceProtocol = {
-    //     return NetworkService()
-    // }()
+     lazy var authService: AuthService = {
+         return AuthService()
+     }()
     
     // MARK: - Repositories
     lazy var repository: Repositories = {
-        return RepositoriesImpl()
+        return RepositoriesImpl(authService: authService)
     }()
     
     // MARK: - UseCases

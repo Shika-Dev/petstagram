@@ -6,18 +6,24 @@
 //
 
 import FirebaseAuth
+import GoogleSignIn
 
 class RepositoriesImpl : Repositories {
+    private let authService: AuthService
+    
+    init(authService: AuthService) {
+        self.authService = authService
+    }
+    
     func fetchPosts(completion: @escaping (Result<[PostEntity], Error>) -> Void) {
         
     }
     
     func signIn(email: String, password: String) async throws -> User {
-        do {
-            let result = try await Auth.auth().signIn(withEmail: email, password: password)
-            return result.user
-        } catch {
-            throw error
-        }
+        return try await authService.signIn(email: email, password: password)
+    }
+    
+    func signInWithGoogle() async throws -> User {
+        return try await authService.signInWithGoogle()
     }
 }

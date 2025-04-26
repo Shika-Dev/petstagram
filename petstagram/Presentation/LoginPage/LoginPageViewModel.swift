@@ -41,4 +41,19 @@ final class LoginPageViewModel: ObservableObject {
             isLoading = false
         }
     }
+    
+    func signInWithGoogle() {
+        isLoading = true
+        error = nil
+        
+        Task {
+            do {
+                let user = try await useCase.signInWithGoogle()
+                print("Successfully signed in with Google: \(user.uid)")
+            } catch {
+                self.error = error.localizedDescription
+            }
+            isLoading = false
+        }
+    }
 }
