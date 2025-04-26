@@ -26,6 +26,7 @@ struct CustomTextField : View {
                                 .font(Theme.Fonts.bodyLargeMedium)
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                         )
+                        .textInputAutocapitalization(.never)
                     } else {
                         SecureField(
                             "",
@@ -34,6 +35,7 @@ struct CustomTextField : View {
                                 .font(Theme.Fonts.bodyLargeMedium)
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                         )
+                        .textInputAutocapitalization(.never)
                     }
                 } else {
                     TextField(
@@ -43,6 +45,7 @@ struct CustomTextField : View {
                             .font(Theme.Fonts.bodyLargeMedium)
                             .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                     )
+                    .textInputAutocapitalization(.never)
                 }
             }
             .font(Theme.Fonts.bodyLargeBold)
