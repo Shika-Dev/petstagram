@@ -10,6 +10,8 @@
 		F075F4C42DBB4A44004AB71A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4C32DBB4A44004AB71A /* FirebaseAnalytics */; };
 		F075F4C62DBB4A44004AB71A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4C52DBB4A44004AB71A /* FirebaseAppCheck */; };
 		F075F4C82DBB4A44004AB71A /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4C72DBB4A44004AB71A /* FirebaseAppDistribution-Beta */; };
+		F075F4FC2DBCF6F2004AB71A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4FB2DBCF6F2004AB71A /* FirebaseAuth */; };
+		F075F4FE2DBCF71F004AB71A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4FD2DBCF71F004AB71A /* FirebaseCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +61,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F075F4C62DBB4A44004AB71A /* FirebaseAppCheck in Frameworks */,
+				F075F4FE2DBCF71F004AB71A /* FirebaseCore in Frameworks */,
 				F075F4C42DBB4A44004AB71A /* FirebaseAnalytics in Frameworks */,
 				F075F4C82DBB4A44004AB71A /* FirebaseAppDistribution-Beta in Frameworks */,
+				F075F4FC2DBCF6F2004AB71A /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +91,7 @@
 				F075F4662DBB3331004AB71A /* petstagram */,
 				F075F4772DBB3334004AB71A /* petstagramTests */,
 				F075F4812DBB3334004AB71A /* petstagramUITests */,
+				F075F4FA2DBCF6F2004AB71A /* Frameworks */,
 				F075F4652DBB3331004AB71A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +104,13 @@
 				F075F47E2DBB3334004AB71A /* petstagramUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F075F4FA2DBCF6F2004AB71A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +136,8 @@
 				F075F4C32DBB4A44004AB71A /* FirebaseAnalytics */,
 				F075F4C52DBB4A44004AB71A /* FirebaseAppCheck */,
 				F075F4C72DBB4A44004AB71A /* FirebaseAppDistribution-Beta */,
+				F075F4FB2DBCF6F2004AB71A /* FirebaseAuth */,
+				F075F4FD2DBCF71F004AB71A /* FirebaseCore */,
 			);
 			productName = petstagram;
 			productReference = F075F4642DBB3331004AB71A /* petstagram.app */;
@@ -594,6 +608,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAppDistribution-Beta";
+		};
+		F075F4FB2DBCF6F2004AB71A /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F075F4FD2DBCF71F004AB71A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

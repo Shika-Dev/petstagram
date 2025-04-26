@@ -9,13 +9,16 @@ import SwiftUI
 
 struct LoginPageView : View {
     @StateObject var viewModel : LoginPageViewModel
+    @StateObject private var authStateManager: AuthStateManager
     
     init() {
-        _viewModel = StateObject(wrappedValue: DIContainer.shared.generateLoginPageViewModel())
+        let di = DIContainer.shared
+        _viewModel = StateObject(wrappedValue: di.generateLoginPageViewModel())
+        _authStateManager = StateObject(wrappedValue: di.authStateManager)
     }
 
     var body: some View {
-        ScrollView {
+        NavigationStack {
             VStack{
                 Image("AppLogo")
                     .resizable()
@@ -37,8 +40,20 @@ struct LoginPageView : View {
                     .padding()
                 CustomTextField(placeholder: "Password", text: $viewModel.password, isPassword: true)
                     .padding(.horizontal)
-                FilledButton(label: "Sign In", action: viewModel.login)
-                    .padding()
+                
+                if let error = viewModel.error {
+                    Text(error)
+                        .font(Theme.Fonts.bodyRegular)
+                        .foregroundColor(.red)
+                        .padding(.horizontal)
+                }
+                
+                FilledButton(
+                    label: viewModel.isLoading ? "Signing in..." : "Sign In",
+                    action: viewModel.login
+                )
+                .disabled(viewModel.isLoading)
+                .padding()
                 
                 HStack {
                     Rectangle()
@@ -66,6 +81,10 @@ struct LoginPageView : View {
                         .stroke(Theme.Colors.dark2.opacity(0.3), lineWidth: 1)
                 )
                 .padding()
+            }
+            .navigationDestination(isPresented: $authStateManager.isAuthenticated) {
+                ContentView()
+                    .navigationBarBackButtonHidden(true)
             }
         }
     }

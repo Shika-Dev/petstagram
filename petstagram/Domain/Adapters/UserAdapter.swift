@@ -13,6 +13,6 @@ class UserUseCaseAdapter: UserUseCases {
     }
     
     func login(email: String, password: String, completion: @escaping(Result<UserEntity, Error>)-> Void) {
-        repository.login(email: email, password: password, completion: completion)
+        
     }
 }

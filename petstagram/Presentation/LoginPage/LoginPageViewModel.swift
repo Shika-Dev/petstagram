@@ -7,31 +7,38 @@
 
 import Foundation
 
-class LoginPageViewModel: ObservableObject {
-    private let usecase: UserUseCases
+@MainActor
+final class LoginPageViewModel: ObservableObject {
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var isLoading: Bool = false
+    @Published var error: String?
+    
+    private let useCase: AuthUseCases
+    private let authStateManager: AuthStateManager
+    
+    init(useCase: AuthUseCases, authStateManager: AuthStateManager) {
+        self.useCase = useCase
+        self.authStateManager = authStateManager
+    }
+    
+    func login() {
+        guard !email.isEmpty, !password.isEmpty else {
+            error = "Please fill in all fields"
+            return
+        }
         
-    init(usecase: UserUseCases){
-        self.usecase = usecase
-    }
-    
-    @Published var email: String = "" {
-        didSet{
-            validateForm()
+        isLoading = true
+        error = nil
+        
+        Task {
+            do {
+                let user = try await useCase.signIn(email: email.lowercased(), password: password)
+                print("Successfully signed in user: \(user.uid)")
+            } catch {
+                self.error = error.localizedDescription
+            }
+            isLoading = false
         }
-    }
-    @Published var password: String = "" {
-        didSet{
-            validateForm()
-        }
-    }
-    var isSaveDisabled: Bool = true
-    
-    private func validateForm(){
-        isSaveDisabled = email.trimmingCharacters(in: .whitespaces).isEmpty && password.trimmingCharacters(in: .whitespaces).isEmpty
-    }
-    
-    func login(){
-        guard !email.trimmingCharacters(in: .whitespaces).isEmpty else {return }
-        guard !password.trimmingCharacters(in: .whitespaces).isEmpty else {return }
     }
 }
