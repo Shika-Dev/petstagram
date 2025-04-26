@@ -22,9 +22,7 @@ struct petstagramApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let repository = RepositoriesImpl()
-            let postUseCase = PostUseCaseAdapter(repository: repository)
-            ContentView()
+            LoginPageView()
         }
     }
 }

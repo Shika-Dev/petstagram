@@ -19,7 +19,7 @@ struct FilledButton : View {
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(.white)
                 .background(Theme.Colors.primary1)
-                .clipShape(.ellipse)
+                .clipShape(.capsule)
         }
     }
 }
@@ -35,7 +35,7 @@ struct OutlinedButton : View {
                 .padding()
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(Theme.Colors.primary1)
-                .clipShape(.ellipse)
+                .clipShape(.capsule)
                 .border(Theme.Colors.primary1)
         }
     }
