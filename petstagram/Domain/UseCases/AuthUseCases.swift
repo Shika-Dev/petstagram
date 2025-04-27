@@ -1,15 +1,14 @@
 //
-//  PetstagramRepositories.swift
+//  AuthUseCases.swift
 //  petstagram
 //
-//  Created by Parama Artha on 25/04/25.
+//  Created by Parama Artha on 26/04/25.
 //
 
 import FirebaseAuth
 import GoogleSignIn
 
-protocol Repositories {
-    func fetchPosts(completion: @escaping (Result<[PostEntity], Error>) -> Void)
+protocol AuthUseCases {
     func signIn(email: String, password: String) async throws -> User
     func signInWithGoogle() async throws -> User
 }
