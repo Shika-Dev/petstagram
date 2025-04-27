@@ -12,4 +12,5 @@ protocol Repositories {
     func fetchPosts(completion: @escaping (Result<[PostEntity], Error>) -> Void)
     func signIn(email: String, password: String) async throws -> User
     func signInWithGoogle() async throws -> User
+    func signUp(email: String, password: String) async throws -> User
 }

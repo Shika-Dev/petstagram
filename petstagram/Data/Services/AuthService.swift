@@ -19,6 +19,15 @@ class AuthService {
         }
     }
     
+    func signUp(email: String, password: String) async throws -> User {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            return result.user
+        } catch {
+            throw error
+        }
+    }
+    
     func signInWithGoogle() async throws -> User {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             throw NSError(domain: "GoogleSignIn", code: -1, userInfo: [NSLocalizedDescriptionKey: "No client ID found"])

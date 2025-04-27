@@ -22,4 +22,8 @@ final class AuthUseCaseAdapter: AuthUseCases {
     func signInWithGoogle() async throws -> User {
         return try await repository.signInWithGoogle()
     }
+    
+    func signUp(email: String, password: String) async throws -> User {
+        return try await repository.signUp(email: email, password: password)
+    }
 } 

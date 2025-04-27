@@ -26,4 +26,8 @@ class RepositoriesImpl : Repositories {
     func signInWithGoogle() async throws -> User {
         return try await authService.signInWithGoogle()
     }
+    
+    func signUp(email: String, password: String) async throws -> User {
+        return try await authService.signUp(email: email, password: password)
+    }
 }

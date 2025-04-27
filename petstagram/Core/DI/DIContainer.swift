@@ -39,6 +39,10 @@ final class DIContainer {
         return LoginPageViewModel(useCase: authUseCase, authStateManager: authStateManager)
     }
     
+    func generateRegisterPageViewModel() -> RegisterPageViewModel {
+        return RegisterPageViewModel(useCase: authUseCase)
+    }
+    
     func generateContentViewModel() -> ContentViewModel {
         return ContentViewModel(authStateManager: authStateManager)
     }
