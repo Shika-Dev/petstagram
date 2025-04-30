@@ -40,6 +40,7 @@ class RegisterPageViewModel : ObservableObject {
             do {
                 let user = try await useCase.signUp(email: email.lowercased(), password: password)
                 print("Successfully signed up user: \(user.uid)")
+                UserDefaultsManager.shared.userUID = user.uid
                 isAuthenticated = true
             } catch {
                 self.error = error.localizedDescription
