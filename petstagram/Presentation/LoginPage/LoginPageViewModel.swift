@@ -36,6 +36,9 @@ final class LoginPageViewModel: ObservableObject {
                 let user = try await useCase.signIn(email: email.lowercased(), password: password)
                 print("Successfully signed in user: \(user.uid)")
                 UserDefaultsManager.shared.userUID = user.uid
+                
+                // Make sure isNewUser is false for login
+                authStateManager.setNewUserStatus(false)
             } catch {
                 self.error = error.localizedDescription
             }
@@ -52,6 +55,10 @@ final class LoginPageViewModel: ObservableObject {
                 let user = try await useCase.signInWithGoogle()
                 print("Successfully signed in with Google: \(user.uid)")
                 UserDefaultsManager.shared.userUID = user.uid
+                
+                // Check if this is a new user by trying to get user data
+                let userEntity = try? await DIContainer.shared.userUseCase.getUser(uid: user.uid)
+                authStateManager.setNewUserStatus(userEntity == nil)
             } catch {
                 self.error = error.localizedDescription
             }

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct EditProfilePageView: View {
-    @StateObject var viewModel : EditProfilePageViewModel
+    @StateObject var viewModel: EditProfilePageViewModel
+    @EnvironmentObject var authStateManager: AuthStateManager
     
     init() {
         let di = DIContainer.shared
@@ -89,6 +90,7 @@ struct EditProfilePageView: View {
                 .padding()
             }
         }
+        .environmentObject(DIContainer.shared.authStateManager)
         .sheet(isPresented: $viewModel.isImagePickerPresented) {
             ImagePicker(selectedImage: Binding(
                 get: { viewModel.selectedImage },
