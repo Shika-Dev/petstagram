@@ -13,6 +13,8 @@ struct CustomTextField : View {
     @FocusState private var isFocused: Bool
     var isPassword: Bool = false
     @State private var showPassword: Bool = false
+    var required : Bool = false
+    var isTextArea: Bool = false
     
     var body: some View {
         HStack {
@@ -22,7 +24,7 @@ struct CustomTextField : View {
                         TextField(
                             "",
                             text: $text,
-                            prompt: Text(placeholder)
+                            prompt: Text("\(placeholder) \(required ? "(required)" : "")")
                                 .font(Theme.Fonts.bodyLargeMedium)
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                         )
@@ -31,17 +33,29 @@ struct CustomTextField : View {
                         SecureField(
                             "",
                             text: $text,
-                            prompt: Text(placeholder)
+                            prompt: Text("\(placeholder) \(required ? "(required)" : "")")
                                 .font(Theme.Fonts.bodyLargeMedium)
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                         )
                         .textInputAutocapitalization(.never)
                     }
+                } else if isTextArea {
+                    TextEditor(text: $text)
+                        .font(Theme.Fonts.bodyLargeBold)
+                        .foregroundStyle(Theme.Colors.dark2)
+                        .frame(height: 100)
+                        .overlay(
+                            Text(text.isEmpty ? "\(placeholder) \(required ? "(required)" : "")" : "")
+                                .font(Theme.Fonts.bodyLargeMedium)
+                                .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
+                                .padding(.leading, 4),
+                            alignment: .topLeading
+                        )
                 } else {
                     TextField(
                         "",
                         text: $text,
-                        prompt: Text(placeholder)
+                        prompt: Text("\(placeholder) \(required ? "(required)" : "")")
                             .font(Theme.Fonts.bodyLargeMedium)
                             .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                     )
@@ -64,7 +78,7 @@ struct CustomTextField : View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(isFocused ? Theme.Colors.primary1 : Theme.Colors.dark1, lineWidth: 1)
+                .stroke(isFocused ? Theme.Colors.primary1 : Theme.Colors.grey1, lineWidth: 2)
                 .background(.white)
         )
         .focused($isFocused)

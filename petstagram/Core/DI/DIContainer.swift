@@ -11,9 +11,13 @@ final class DIContainer {
          return AuthService()
      }()
     
+    lazy var userService: UserService = {
+        return UserService()
+    }()
+    
     // MARK: - Repositories
     lazy var repository: Repositories = {
-        return RepositoriesImpl(authService: authService)
+        return RepositoriesImpl(authService: authService, userService: userService)
     }()
     
     // MARK: - UseCases
@@ -37,6 +41,14 @@ final class DIContainer {
     // MARK: - ViewModels
     func generateLoginPageViewModel() -> LoginPageViewModel {
         return LoginPageViewModel(useCase: authUseCase, authStateManager: authStateManager)
+    }
+    
+    func generateRegisterPageViewModel() -> RegisterPageViewModel {
+        return RegisterPageViewModel(useCase: authUseCase)
+    }
+    
+    func generateEditProfilePageViewModel() -> EditProfilePageViewModel {
+        return EditProfilePageViewModel(useCase: userUseCase)
     }
     
     func generateContentViewModel() -> ContentViewModel {

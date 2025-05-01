@@ -1,13 +1,13 @@
 //
-//  UserEntity.swift
+//  UserBody.swift
 //  petstagram
 //
-//  Created by Parama Artha on 25/04/25.
+//  Created by Parama Artha on 30/04/25.
 //
 
 import Foundation
 
-struct UserEntity: Codable {
+struct UserBody : Codable {
     let uid: String
     let fullName: String
     let userName: String

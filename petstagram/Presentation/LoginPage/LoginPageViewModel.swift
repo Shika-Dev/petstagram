@@ -35,6 +35,7 @@ final class LoginPageViewModel: ObservableObject {
             do {
                 let user = try await useCase.signIn(email: email.lowercased(), password: password)
                 print("Successfully signed in user: \(user.uid)")
+                UserDefaultsManager.shared.userUID = user.uid
             } catch {
                 self.error = error.localizedDescription
             }
@@ -50,6 +51,7 @@ final class LoginPageViewModel: ObservableObject {
             do {
                 let user = try await useCase.signInWithGoogle()
                 print("Successfully signed in with Google: \(user.uid)")
+                UserDefaultsManager.shared.userUID = user.uid
             } catch {
                 self.error = error.localizedDescription
             }

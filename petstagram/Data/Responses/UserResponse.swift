@@ -5,10 +5,13 @@
 //  Created by Parama Artha on 25/04/25.
 //
 
+import Foundation
+
 struct UserResponse: Codable {
-    let email: String
-    let displayName: String
-    let bio: String
-    let profilePictureUrl: String
-    let birthday: String
+    let uid: String
+    let fullName: String
+    let userName: String
+    let dateOfBirth: Date
+    let bio: String?
+    var profileImageBase64: String?
 }

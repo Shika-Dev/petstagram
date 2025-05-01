@@ -6,5 +6,6 @@
 //
 
 protocol UserUseCases {
-    func login(email: String, password: String, completion: @escaping (Result<UserEntity, Error>) -> Void)
+    func getUser(uid: String) async throws -> UserEntity?
+    func createOrUpdateUser(user: UserEntity) async throws -> Void
 }

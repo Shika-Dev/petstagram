@@ -84,6 +84,18 @@ struct LoginPageView : View {
                 .onTapGesture {
                     viewModel.signInWithGoogle()
                 }
+
+                Spacer()
+                HStack{
+                    Text("Do not has an account?")
+                        .font(Theme.Fonts.bodyLargeRegular)
+                        .foregroundStyle(Theme.Colors.dark1)
+                    NavigationLink(destination: RegisterPageView().navigationBarBackButtonHidden(true)) {
+                        Text("Sign Up")
+                            .font(Theme.Fonts.bodyLargeRegular)
+                            .foregroundStyle(Theme.Colors.primary1)
+                    }
+                }
             }
             .navigationDestination(isPresented: $authStateManager.isAuthenticated) {
                 ContentView()

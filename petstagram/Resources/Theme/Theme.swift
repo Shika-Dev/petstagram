@@ -18,10 +18,10 @@ struct Theme {
         static let secondary4 = Color(hex: "#FFF9F8")
         static let dark1 = Color(hex: "#20242B")
         static let dark2 = Color(hex: "#303742")
-        static let grey1 = Color(hex: "#C4C4C4")
+        static let greyDisable = Color(hex: "#C4C4C4")
+        static let grey1 = Color(hex: "#EBF0F0")
         static let grey2 = Color(hex: "#EBF0F0")
-        static let grey3 = Color(hex: "#EBF0F0")
-        static let grey4 = Color(hex: "#FDFDFD")
+        static let grey3 = Color(hex: "#FDFDFD")
     }
     
     struct Fonts {

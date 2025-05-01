@@ -12,7 +12,11 @@ class UserUseCaseAdapter: UserUseCases {
         self.repository = repository
     }
     
-    func login(email: String, password: String, completion: @escaping(Result<UserEntity, Error>)-> Void) {
-        
+    func getUser(uid: String) async throws -> UserEntity? {
+        return try await repository.getUser(uid: uid)
+    }
+    
+    func createOrUpdateUser(user: UserEntity) async throws {
+        return try await repository.createOrUpdateUser(user: user)
     }
 }

@@ -23,4 +23,15 @@ class Mapper {
             username: response.username, createdAt: response.createdAt
         );
     }
+    
+    static func user(from response: UserResponse?) -> UserEntity? {
+        guard response != nil else {
+            return nil
+        }
+        return UserEntity(uid: response!.uid, fullName: response!.fullName, userName: response!.userName, dateOfBirth: response!.dateOfBirth, bio: response?.bio ?? "", profileImageBase64: response?.profileImageBase64 ?? "")
+    }
+    
+    static func userBody(from entity: UserEntity) -> UserBody {
+        return UserBody(uid: entity.uid, fullName: entity.fullName, userName: entity.userName, dateOfBirth: entity.dateOfBirth, bio: entity.bio, profileImageBase64: entity.profileImageBase64)
+    }
 }
