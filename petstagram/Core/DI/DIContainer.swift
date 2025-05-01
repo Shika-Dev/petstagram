@@ -44,7 +44,7 @@ final class DIContainer {
     }
     
     func generateRegisterPageViewModel() -> RegisterPageViewModel {
-        return RegisterPageViewModel(useCase: authUseCase)
+        return RegisterPageViewModel(useCase: authUseCase, authStateManager: authStateManager)
     }
     
     func generateEditProfilePageViewModel() -> EditProfilePageViewModel {

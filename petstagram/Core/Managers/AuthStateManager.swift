@@ -12,6 +12,7 @@ import FirebaseAuth
 final class AuthStateManager: ObservableObject {
     @Published var isAuthenticated: Bool = false
     @Published var currentUser: User?
+    @Published var isNewUser: Bool = false
     
     init() {
         setupAuthStateListener()
@@ -28,5 +29,11 @@ final class AuthStateManager: ObservableObject {
         try Auth.auth().signOut()
         isAuthenticated = false
         currentUser = nil
+        isNewUser = false
+        UserDefaultsManager.shared.clearUserData()
     }
-} 
+    
+    func setNewUserStatus(_ isNew: Bool) {
+        isNewUser = isNew
+    }
+}

@@ -88,4 +88,3 @@ class EditProfilePageViewModel: ObservableObject {
         self.selectedImage = image
     }
 }
-

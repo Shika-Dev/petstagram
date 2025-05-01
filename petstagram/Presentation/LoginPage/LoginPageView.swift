@@ -98,8 +98,15 @@ struct LoginPageView : View {
                 }
             }
             .navigationDestination(isPresented: $authStateManager.isAuthenticated) {
-                ContentView()
-                    .navigationBarBackButtonHidden(true)
+                Group {
+                    if authStateManager.isNewUser {
+                        EditProfilePageView()
+                            .navigationBarBackButtonHidden(true)
+                    } else {
+                        ContentView()
+                            .navigationBarBackButtonHidden(true)
+                    }
+                }
             }
         }
     }

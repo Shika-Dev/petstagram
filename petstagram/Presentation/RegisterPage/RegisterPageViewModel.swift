@@ -14,12 +14,13 @@ class RegisterPageViewModel : ObservableObject {
     @Published var reTypePassword: String = ""
     @Published var isLoading: Bool = false
     @Published var error: String?
-    @Published var isAuthenticated: Bool = false
     
     private let useCase: AuthUseCases
+    private let authStateManager: AuthStateManager
     
-    init(useCase: AuthUseCases) {
+    init(useCase: AuthUseCases, authStateManager: AuthStateManager) {
         self.useCase = useCase
+        self.authStateManager = authStateManager
     }
     
     func register() {
@@ -41,7 +42,9 @@ class RegisterPageViewModel : ObservableObject {
                 let user = try await useCase.signUp(email: email.lowercased(), password: password)
                 print("Successfully signed up user: \(user.uid)")
                 UserDefaultsManager.shared.userUID = user.uid
-                isAuthenticated = true
+                
+                // Set flag to indicate this is a new user
+                authStateManager.setNewUserStatus(true)
             } catch {
                 self.error = error.localizedDescription
             }
