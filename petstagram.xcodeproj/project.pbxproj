@@ -14,6 +14,7 @@
 		F075F4FE2DBCF71F004AB71A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F075F4FD2DBCF71F004AB71A /* FirebaseCore */; };
 		F075F50F2DBD07B9004AB71A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F075F50E2DBD07B9004AB71A /* GoogleSignIn */; };
 		F075F5112DBD07B9004AB71A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F075F5102DBD07B9004AB71A /* GoogleSignInSwift */; };
+		F0A200E22DC1E363003A0F66 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F0A200E12DC1E363003A0F66 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 				F075F5112DBD07B9004AB71A /* GoogleSignInSwift in Frameworks */,
 				F075F4C42DBB4A44004AB71A /* FirebaseAnalytics in Frameworks */,
 				F075F4C82DBB4A44004AB71A /* FirebaseAppDistribution-Beta in Frameworks */,
+				F0A200E22DC1E363003A0F66 /* FirebaseFirestore in Frameworks */,
 				F075F4FC2DBCF6F2004AB71A /* FirebaseAuth in Frameworks */,
 				F075F50F2DBD07B9004AB71A /* GoogleSignIn in Frameworks */,
 			);
@@ -157,6 +159,7 @@
 				F075F4FD2DBCF71F004AB71A /* FirebaseCore */,
 				F075F50E2DBD07B9004AB71A /* GoogleSignIn */,
 				F075F5102DBD07B9004AB71A /* GoogleSignInSwift */,
+				F0A200E12DC1E363003A0F66 /* FirebaseFirestore */,
 			);
 			productName = petstagram;
 			productReference = F075F4642DBB3331004AB71A /* petstagram.app */;
@@ -445,6 +448,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"petstagram/Preview Content\"";
+				DEVELOPMENT_TEAM = 8A5K356RU7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "petstagram/Supporting Files/Info.plist";
@@ -474,6 +478,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"petstagram/Preview Content\"";
+				DEVELOPMENT_TEAM = 8A5K356RU7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "petstagram/Supporting Files/Info.plist";
@@ -658,6 +663,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F075F50D2DBD07A4004AB71A /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		F0A200E12DC1E363003A0F66 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

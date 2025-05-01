@@ -11,9 +11,13 @@ final class DIContainer {
          return AuthService()
      }()
     
+    lazy var userService: UserService = {
+        return UserService()
+    }()
+    
     // MARK: - Repositories
     lazy var repository: Repositories = {
-        return RepositoriesImpl(authService: authService)
+        return RepositoriesImpl(authService: authService, userService: userService)
     }()
     
     // MARK: - UseCases

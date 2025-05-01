@@ -13,4 +13,6 @@ protocol Repositories {
     func signIn(email: String, password: String) async throws -> User
     func signInWithGoogle() async throws -> User
     func signUp(email: String, password: String) async throws -> User
+    func getUser(uid: String) async throws -> UserEntity?
+    func createOrUpdateUser(user: UserEntity) async throws -> Void
 }

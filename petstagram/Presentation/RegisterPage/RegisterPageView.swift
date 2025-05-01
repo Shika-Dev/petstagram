@@ -9,11 +9,13 @@ import SwiftUI
 
 struct RegisterPageView: View {
     @StateObject var viewModel : RegisterPageViewModel
+    @StateObject private var authStateManager: AuthStateManager
     @Environment(\.dismiss) private var dismiss
     
     init() {
         let di = DIContainer.shared
         _viewModel = StateObject(wrappedValue: di.generateRegisterPageViewModel())
+        _authStateManager = StateObject(wrappedValue: di.authStateManager)
     }
     
     var body: some View {
@@ -69,7 +71,7 @@ struct RegisterPageView: View {
                 }
             }
             .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-                ContentView()
+                EditProfilePageView()
                     .navigationBarBackButtonHidden(true)
             }
         }

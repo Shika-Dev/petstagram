@@ -95,6 +95,10 @@ struct EditProfilePageView: View {
                 set: { viewModel.didSelectImage($0) }
             ))
         }
+        .navigationDestination(isPresented: $viewModel.isProfileSaved) {
+            ContentView()
+                .navigationBarBackButtonHidden(true)
+        }
     }
 }
 
