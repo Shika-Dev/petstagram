@@ -5,6 +5,8 @@
 //  Created by Parama Artha on 26/04/25.
 //
 
+import UIKit
+
 class UserUseCaseAdapter: UserUseCases {
     private let repository: Repositories
     
@@ -16,7 +18,7 @@ class UserUseCaseAdapter: UserUseCases {
         return try await repository.getUser(uid: uid)
     }
     
-    func createOrUpdateUser(user: UserEntity) async throws {
-        return try await repository.createOrUpdateUser(user: user)
+    func createOrUpdateUser(user: UserEntity, newImage: UIImage?) async throws {
+        return try await repository.createOrUpdateUser(user: user, newImage: newImage)
     }
 }

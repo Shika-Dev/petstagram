@@ -28,10 +28,10 @@ class Mapper {
         guard response != nil else {
             return nil
         }
-        return UserEntity(uid: response!.uid, fullName: response!.fullName, userName: response!.userName, dateOfBirth: response!.dateOfBirth, bio: response?.bio ?? "", profileImageBase64: response?.profileImageBase64 ?? "")
+        return UserEntity(uid: response!.uid, fullName: response!.fullName, userName: response!.userName, dateOfBirth: response!.dateOfBirth, bio: response?.bio ?? "", profileImageUrl: response?.profileImageUrl ?? "")
     }
     
     static func userBody(from entity: UserEntity) -> UserBody {
-        return UserBody(uid: entity.uid, fullName: entity.fullName, userName: entity.userName, dateOfBirth: entity.dateOfBirth, bio: entity.bio, profileImageBase64: entity.profileImageBase64)
+        return UserBody(uid: entity.uid, fullName: entity.fullName, userName: entity.userName, dateOfBirth: entity.dateOfBirth, bio: entity.bio, profileImageUrl: entity.profileImageUrl)
     }
 }

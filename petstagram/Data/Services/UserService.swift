@@ -11,14 +11,31 @@ import UIKit
 
 class UserService {
     private let db = Firestore.firestore()
-    
-    func createOrUpdateUser(user: UserBody) async throws {
-        let data = try JSONEncoder().encode(user)
-        let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] ?? [:]
+    private let cloudinaryService = CloudinaryService()
         
-        // Using merge: true to update existing fields while preserving fields not included in the update
-        try await db.collection("users").document(user.uid).setData(dict, merge: true)
-    }
+        func createOrUpdateUser(user: UserBody, newProfileImage: UIImage? = nil) async throws {
+            var updatedUser = user
+            
+            // If there's a new image, upload it to Cloudinary
+            if let image = newProfileImage {
+                let imageURL = try await cloudinaryService.uploadImage(image)
+                // Create a new user with the image URL
+                updatedUser = UserBody(
+                    uid: user.uid,
+                    fullName: user.fullName,
+                    userName: user.userName,
+                    dateOfBirth: user.dateOfBirth,
+                    bio: user.bio,
+                    profileImageUrl: imageURL
+                )
+            }
+            
+            let data = try JSONEncoder().encode(updatedUser)
+            let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any] ?? [:]
+            
+            // Using merge: true to update existing fields while preserving fields not included in the update
+            return try await db.collection("users").document(updatedUser.uid).setData(dict, merge: true)
+        }
     
     func getUser(uid: String) async throws -> UserResponse? {
         let document = try await db.collection("users").document(uid).getDocument()

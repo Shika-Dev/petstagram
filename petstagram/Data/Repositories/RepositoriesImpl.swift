@@ -38,8 +38,8 @@ class RepositoriesImpl : Repositories {
         return Mapper.user(from: user)
     }
     
-    func createOrUpdateUser(user: UserEntity) async throws {
+    func createOrUpdateUser(user: UserEntity, newImage: UIImage?) async throws {
         let userBody = Mapper.userBody(from: user)
-        return try await userService.createOrUpdateUser(user: userBody)
+        return try await userService.createOrUpdateUser(user: userBody, newProfileImage: newImage)
     }
 }

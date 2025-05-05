@@ -14,7 +14,7 @@ class EditProfilePageViewModel: ObservableObject {
     @Published var userName: String = ""
     @Published var dateOfBirth: Date = Date()
     @Published var bio: String = ""
-    @Published var profileImageBase64: String?
+    @Published var profileImageUrl: String?
     @Published var isLoading: Bool = false
     @Published var error: String?
     @Published var selectedImage: UIImage?
@@ -38,7 +38,7 @@ class EditProfilePageViewModel: ObservableObject {
                     userName = user.userName
                     dateOfBirth = user.dateOfBirth
                     bio = user.bio ?? ""
-                    profileImageBase64 = user.profileImageBase64
+                    profileImageUrl = user.profileImageUrl
                 }
             } catch {
                 self.error = error.localizedDescription
@@ -62,20 +62,20 @@ class EditProfilePageViewModel: ObservableObject {
         
         Task {
             do {
-                if let image = selectedImage {
-                    profileImageBase64 = image.convertToBase64()
-                }
-                
                 let user = UserEntity(
                     uid: uid,
                     fullName: fullName,
                     userName: userName,
                     dateOfBirth: dateOfBirth,
-                    bio: bio,
-                    profileImageBase64: profileImageBase64
+                    bio: bio
                 )
                 
-                try await useCase.createOrUpdateUser(user: user)
+                // Pass the new image if there is one, otherwise just update the text fields
+                try await useCase.createOrUpdateUser(
+                    user: user,
+                    newImage: selectedImage
+                )
+                
                 isProfileSaved = true
             } catch {
                 self.error = error.localizedDescription

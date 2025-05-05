@@ -13,5 +13,5 @@ struct UserResponse: Codable {
     let userName: String
     let dateOfBirth: Date
     let bio: String?
-    var profileImageBase64: String?
+    var profileImageUrl: String?
 }
