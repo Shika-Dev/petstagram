@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-final class ContentViewModel: ObservableObject {
+final class HomePageViewModel: ObservableObject {
     private let authStateManager: AuthStateManager
     
     init(authStateManager: AuthStateManager) {

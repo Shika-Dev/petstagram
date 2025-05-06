@@ -8,10 +8,28 @@
 import Foundation
 
 struct UserBody : Codable {
-    let uid: String
-    let fullName: String
-    let userName: String
-    let dateOfBirth: Date
-    let bio: String?
+    var uid: String
+    var fullName: String
+    var userName: String
+    var dateOfBirth: Date
+    var bio: String?
     var profileImageUrl: String?
+    
+    func copyWith(
+        uid: String? = nil,
+        fullName: String? = nil,
+        userName: String? = nil,
+        dateOfBirth: Date? = nil,
+        bio: String? = nil,
+        profileImageUrl: String? = nil
+    ) -> UserBody {
+        return UserBody(
+            uid: uid ?? self.uid,
+            fullName: fullName ?? self.fullName,
+            userName: userName ?? self.userName,
+            dateOfBirth: dateOfBirth ?? self.dateOfBirth,
+            bio: bio ?? self.bio,
+            profileImageUrl: profileImageUrl ?? self.profileImageUrl
+        )
+    }
 }

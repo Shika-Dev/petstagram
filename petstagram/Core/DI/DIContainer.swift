@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseFirestore
 
 @MainActor
 final class DIContainer {
@@ -6,18 +7,32 @@ final class DIContainer {
     
     private init() {}
     
+    // MARK: - FirebaseFirestore
+    lazy var firestore: Firestore = {
+        return Firestore.firestore()
+    }()
+    
+    //MARK: - Cloudinary
+    lazy var claudinaryService: CloudinaryService = {
+        return CloudinaryService()
+    }()
+    
     // MARK: - Network
      lazy var authService: AuthService = {
          return AuthService()
      }()
     
     lazy var userService: UserService = {
-        return UserService()
+        return UserService(db: firestore, cloudinaryService: claudinaryService)
+    }()
+    
+    lazy var postService: PostService = {
+        return PostService(db: firestore, cloudinaryService: claudinaryService)
     }()
     
     // MARK: - Repositories
     lazy var repository: Repositories = {
-        return RepositoriesImpl(authService: authService, userService: userService)
+        return RepositoriesImpl(authService: authService, userService: userService, postService: postService)
     }()
     
     // MARK: - UseCases
@@ -51,7 +66,11 @@ final class DIContainer {
         return EditProfilePageViewModel(useCase: userUseCase)
     }
     
-    func generateContentViewModel() -> ContentViewModel {
-        return ContentViewModel(authStateManager: authStateManager)
+    func generateHomePageViewModel() -> HomePageViewModel {
+        return HomePageViewModel(authStateManager: authStateManager)
     }
-} 
+    
+    func generateSelectPicturePageViewModel() -> SelectPicturePageViewModel {
+        return SelectPicturePageViewModel(useCase: postUseCase)
+    }
+}

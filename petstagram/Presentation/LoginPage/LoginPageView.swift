@@ -103,7 +103,7 @@ struct LoginPageView : View {
                         EditProfilePageView()
                             .navigationBarBackButtonHidden(true)
                     } else {
-                        ContentView()
+                        ContentPageView()
                             .navigationBarBackButtonHidden(true)
                     }
                 }

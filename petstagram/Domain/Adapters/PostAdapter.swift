@@ -5,6 +5,8 @@
 //  Created by Parama Artha on 25/04/25.
 //
 
+import SwiftUI
+
 class PostUseCaseAdapter: PostUseCases {
     private let repository: Repositories
     
@@ -14,5 +16,9 @@ class PostUseCaseAdapter: PostUseCases {
     
     func fetchPosts(completion: @escaping(Result<[PostEntity], Error>)-> Void) {
         repository.fetchPosts(completion: completion)
+    }
+    
+    func uploadPosts(image: UIImage, caption: String) async throws {
+        return try await repository.uploadPost(image: image, caption: caption)
     }
 }

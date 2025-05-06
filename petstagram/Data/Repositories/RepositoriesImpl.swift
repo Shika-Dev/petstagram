@@ -11,14 +11,22 @@ import GoogleSignIn
 class RepositoriesImpl : Repositories {
     private let authService: AuthService
     private let userService: UserService
+    private let postService: PostService
     
-    init(authService: AuthService, userService: UserService) {
+    init(authService: AuthService, userService: UserService, postService: PostService) {
         self.authService = authService
         self.userService = userService
+        self.postService = postService
     }
     
     func fetchPosts(completion: @escaping (Result<[PostEntity], Error>) -> Void) {
         
+    }
+    
+    func uploadPost(image: UIImage, caption: String) async throws {
+        guard let uid = await UserDefaultsManager.shared.userUID else { return }
+        
+        return try await postService.uploadPost(uid: uid, caption: caption, image: image)
     }
     
     func signIn(email: String, password: String) async throws -> User {

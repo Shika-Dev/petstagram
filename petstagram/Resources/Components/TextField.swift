@@ -48,7 +48,8 @@ struct CustomTextField : View {
                             Text(text.isEmpty ? "\(placeholder) \(required ? "(required)" : "")" : "")
                                 .font(Theme.Fonts.bodyLargeMedium)
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
-                                .padding(.leading, 4),
+                                .padding(.leading, 4)
+                                .padding(.top, 6),
                             alignment: .topLeading
                         )
                 } else {
