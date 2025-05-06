@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct EditProfilePageView: View {
     @StateObject var viewModel: EditProfilePageViewModel
@@ -27,6 +28,12 @@ struct EditProfilePageView: View {
                     
                     if let selectedImage = viewModel.selectedImage {
                         Image(uiImage: selectedImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 108, height: 108)
+                            .clipShape(Circle())
+                    } else if let imageUrl = viewModel.profileImageUrl {
+                        WebImage(url: URL(string: imageUrl))
                             .resizable()
                             .scaledToFill()
                             .frame(width: 108, height: 108)

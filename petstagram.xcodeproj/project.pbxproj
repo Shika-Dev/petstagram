@@ -16,6 +16,7 @@
 		F0FA4D152DC86F310035EB33 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F0FA4D142DC86F310035EB33 /* FirebaseCore */; };
 		F0FA4D172DC86F460035EB33 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F0FA4D162DC86F460035EB33 /* FirebaseFirestore */; };
 		F0FA4D1A2DC873310035EB33 /* Cloudinary in Frameworks */ = {isa = PBXBuildFile; productRef = F0FA4D192DC873310035EB33 /* Cloudinary */; };
+		F0FA4D402DC9FDC10035EB33 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F0FA4D3F2DC9FDC10035EB33 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0FA4D402DC9FDC10035EB33 /* SDWebImageSwiftUI in Frameworks */,
 				F0FA4D102DC86F1B0035EB33 /* GoogleSignInSwift in Frameworks */,
 				F0FA4D132DC86F310035EB33 /* FirebaseAuth in Frameworks */,
 				F075F4C62DBB4A44004AB71A /* FirebaseAppCheck in Frameworks */,
@@ -163,6 +165,7 @@
 				F0FA4D142DC86F310035EB33 /* FirebaseCore */,
 				F0FA4D162DC86F460035EB33 /* FirebaseFirestore */,
 				F0FA4D192DC873310035EB33 /* Cloudinary */,
+				F0FA4D3F2DC9FDC10035EB33 /* SDWebImageSwiftUI */,
 			);
 			productName = petstagram;
 			productReference = F075F4642DBB3331004AB71A /* petstagram.app */;
@@ -250,6 +253,7 @@
 				F075F4C22DBB4A44004AB71A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				F0FA4D0C2DC86F1B0035EB33 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				F0FA4D182DC873310035EB33 /* XCRemoteSwiftPackageReference "cloudinary_ios" */,
+				F0FA4D3E2DC9FDC10035EB33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F075F4652DBB3331004AB71A /* Products */;
@@ -644,6 +648,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		F0FA4D3E2DC9FDC10035EB33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -691,6 +703,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0FA4D182DC873310035EB33 /* XCRemoteSwiftPackageReference "cloudinary_ios" */;
 			productName = Cloudinary;
+		};
+		F0FA4D3F2DC9FDC10035EB33 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0FA4D3E2DC9FDC10035EB33 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
