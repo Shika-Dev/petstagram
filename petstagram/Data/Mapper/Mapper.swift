@@ -5,23 +5,35 @@
 //  Created by Parama Artha on 25/04/25.
 //
 
+import Foundation
+
 class Mapper {
-    static func posts(from response: PostResponse) -> PostEntity {
+    static func posts(from response: PostResponse, uid: String) -> PostEntity {
         return PostEntity(
-            id: response.id, imgUrl: response.imgUrl, caption: response.caption, likes: response.likes, comments: response.comments.map(Mapper.comments(from:)), meta: metaData(from: response.meta)
-        );
+            id: response.id, imgUrl: response.imgUrl, caption: response.caption, likes: response.likes, likesCount: response.likes.count, isLike: response.likes.contains(uid), comments: response.comments.map(Mapper.comments(from:)), meta: metaData(from: response.meta)
+        )
     }
     
     static func comments(from response: CommentDataResponse) -> CommentEntity {
         return CommentEntity(
             username: response.username, profileImgUrl: response.profileImgUrl, comment: response.comment
-        );
+        )
     }
     
-    static func metaData(from response: MetaDataResponse) -> MetaData {
+    static func metaData(from response: MetaDataResponse?) -> MetaData {
+        var dateString = ""
+        
+        if(response?.createdAt != nil) {
+            let date = Date(timeIntervalSince1970: response!.createdAt)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
+            
+            dateString = formatter.string(from: date)
+        }
+
         return MetaData(
-            username: response.username, createdAt: response.createdAt
-        );
+            fullName: response?.fullName ?? "", username: response?.username ?? "", profileImgUrl: response?.profileImageUrl ?? "", createdAt: dateString
+        )
     }
     
     static func user(from response: UserResponse?) -> UserEntity? {

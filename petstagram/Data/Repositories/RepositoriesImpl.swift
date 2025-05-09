@@ -19,14 +19,24 @@ class RepositoriesImpl : Repositories {
         self.postService = postService
     }
     
-    func fetchPosts(completion: @escaping (Result<[PostEntity], Error>) -> Void) {
+    func fetchPosts() async throws -> [PostEntity] {
+        let uid = await UserDefaultsManager.shared.userUID ?? ""
+        let posts = try await postService.fetchPosts()
+        let result = posts.map { post -> PostEntity in
+            return Mapper.posts(from: post, uid: uid)
+        }
         
+        return result
     }
     
     func uploadPost(image: UIImage, caption: String) async throws {
         guard let uid = await UserDefaultsManager.shared.userUID else { return }
         
         return try await postService.uploadPost(uid: uid, caption: caption, image: image)
+    }
+    
+    func updateLike(id postId: String, likes list: [String]) async throws {
+        return try await postService.updateLike(postId: postId, list: list)
     }
     
     func signIn(email: String, password: String) async throws -> User {

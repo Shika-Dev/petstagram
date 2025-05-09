@@ -18,7 +18,7 @@ struct ContentPageView: View {
                 SelectPicturePageView()
                     .tag(1)
                 
-                EditProfilePageView()
+                ProfilePageView()
                     .tag(2)
             }
             

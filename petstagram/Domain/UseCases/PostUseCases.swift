@@ -8,6 +8,7 @@
 import SwiftUI
 
 protocol PostUseCases {
-    func fetchPosts(completion: @escaping (Result<[PostEntity], Error>) -> Void)
+    func fetchPosts() async throws -> [PostEntity]
     func uploadPosts(image: UIImage, caption: String) async throws -> Void
+    func updateLike(id postId: String, likes list: [String]) async throws -> Void
 }

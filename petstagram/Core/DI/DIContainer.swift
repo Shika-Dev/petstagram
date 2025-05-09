@@ -27,7 +27,7 @@ final class DIContainer {
     }()
     
     lazy var postService: PostService = {
-        return PostService(db: firestore, cloudinaryService: claudinaryService)
+        return PostService(db: firestore, cloudinaryService: claudinaryService, userService: userService)
     }()
     
     // MARK: - Repositories
@@ -67,10 +67,14 @@ final class DIContainer {
     }
     
     func generateHomePageViewModel() -> HomePageViewModel {
-        return HomePageViewModel(authStateManager: authStateManager)
+        return HomePageViewModel(useCase: postUseCase)
     }
     
     func generateSelectPicturePageViewModel() -> SelectPicturePageViewModel {
         return SelectPicturePageViewModel(useCase: postUseCase)
+    }
+    
+    func generateProfilePageViewModel() -> ProfilePageViewModel {
+        return ProfilePageViewModel(authStateManager: authStateManager)
     }
 }

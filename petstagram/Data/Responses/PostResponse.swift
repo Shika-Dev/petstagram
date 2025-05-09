@@ -9,9 +9,9 @@ struct PostResponse: Codable {
     let id: String
     let imgUrl: String
     let caption: String
-    let likes: Int
+    let likes: [String]
     let comments: [CommentDataResponse]
-    let meta: MetaDataResponse
+    let meta: MetaDataResponse?
 }
 
 struct CommentDataResponse: Codable {
@@ -21,6 +21,8 @@ struct CommentDataResponse: Codable {
 }
 
 struct MetaDataResponse: Codable {
+    let fullName: String
     let username: String
-    let createdAt: String
+    let profileImageUrl: String
+    let createdAt: Double
 }
