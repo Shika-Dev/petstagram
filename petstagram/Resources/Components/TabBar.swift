@@ -31,15 +31,15 @@ struct CustomTabBar: View {
                 selectedTab = 2
             }
         }
-        .padding(.bottom, 16)
         .padding(.vertical, 16)
         .padding(.horizontal, 30)
-        .frame(height: 60)
+        .frame(height: 44)
         .frame(maxWidth: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color(.white))
-                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: -2)
+            UnevenRoundedRectangle(topLeadingRadius: 15, topTrailingRadius: 15)
+                    .fill(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: -2)
+                    .ignoresSafeArea()
         )
     }
 }
@@ -51,7 +51,7 @@ struct TabButton: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            Group {
                 if(imageName.contains(".")){
                     Image(systemName: imageName)
                         .font(.system(size: 24))

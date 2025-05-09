@@ -36,6 +36,7 @@ struct HomePageView: View {
                 .padding(.horizontal)
                 .navigationBarTitleDisplayMode(.inline)
             }
+            .scrollIndicators(.hidden)
             .refreshable {
                 viewModel.fetchPosts()
             }
@@ -89,32 +90,6 @@ struct PostElementView : View {
             Text(post.meta.createdAt)
                 .font(Theme.Fonts.bodySmallRegular)
         }
-    }
-}
-
-struct RefreshableContent<Content: View>: View {
-    var refreshAction: () async -> Void
-    var isRefreshing: Bool
-    let content: Content
-    
-    init(refreshAction: @escaping () async -> Void, isRefreshing: Bool, @ViewBuilder content: () -> Content) {
-        self.refreshAction = refreshAction
-        self.isRefreshing = isRefreshing
-        self.content = content()
-    }
-    
-    var body: some View {
-        content
-            .refreshable {
-                await refreshAction()
-            }
-            .overlay(alignment: .top) {
-                if isRefreshing {
-                    ProgressView()
-                        .tint(Theme.Colors.primary1)
-                        .padding(.top, 10)
-                }
-            }
     }
 }
 

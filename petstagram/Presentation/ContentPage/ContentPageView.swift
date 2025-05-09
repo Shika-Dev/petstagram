@@ -9,23 +9,27 @@ import SwiftUI
 
 struct ContentPageView: View {
     @State private var selectedTab = 0
+    @Environment(\.pixelLength) private var pixelLength
+    
     var body: some View {
-        ZStack(alignment: .bottom) {
-            TabView(selection: $selectedTab) {
-                HomePageView()
-                    .tag(0)
-                
-                SelectPicturePageView()
-                    .tag(1)
-                
-                ProfilePageView()
-                    .tag(2)
-            }
+        TabView(selection: $selectedTab) {
+            HomePageView()
+                .toolbarVisibility(.hidden, for: .tabBar)
+                .tag(0)
             
-            // Custom tab bar
+            SelectPicturePageView()
+                .toolbarVisibility(.hidden, for: .tabBar)
+                .tag(1)
+            
+            ProfilePageView()
+                .toolbarVisibility(.hidden, for: .tabBar)
+                .tag(2)
+        }
+        .padding(.bottom, pixelLength)
+        .padding(.top, pixelLength)
+        .safeAreaInset(edge: .bottom) {
             CustomTabBar(selectedTab: $selectedTab)
         }
-        .ignoresSafeArea(edges: .bottom)
     }
 }
 
