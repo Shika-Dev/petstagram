@@ -13,15 +13,15 @@ An iOS social media application for pet lovers to share and discover pet photos 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="screenshots/screen1.png" width="200" alt="Home Screen"/>
-  <img src="screenshots/screen2.png" width="200" alt="Profile Screen"/>
-  <img src="screenshots/screen3.png" width="200" alt="Profile Post Screen"/>
+  <img src="petstagram/screenshots/screen1.png" width="200" alt="Home Screen"/>
+  <img src="petstagram/screenshots/screen2.png" width="200" alt="Profile Screen"/>
+  <img src="petstagram/screenshots/screen3.png" width="200" alt="Profile Post Screen"/>
 </div>
 
 <div align="center">
-  <img src="screenshots/screen4.png" width="200" alt="Edit Profile"/>
-  <img src="screenshots/screen5.png" width="200" alt="Comment Screen"/>
-  <img src="screenshots/screen6.png" width="200" alt="Add Post Screen"/>
+  <img src="petstagram/screenshots/screen4.png" width="200" alt="Edit Profile"/>
+  <img src="petstagram/screenshots/screen5.png" width="200" alt="Comment Screen"/>
+  <img src="petstagram/screenshots/screen6.png" width="200" alt="Add Post Screen"/>
 </div>
 
 ## 🛠 Technologies Used
