@@ -33,7 +33,8 @@ petstagram/
 
 1. 📥 Clone this repository
 2. 💻 Open `petstagram.xcodeproj` in Xcode
-3. ⚙️ Add .xconfig file to your project
+3. 🔥 Create and configure the firebase project
+4. ⚙️ Add .xconfig file to your project
    ```
     // Cloudinary Credentials
     CLOUDINARY_CLOUD_NAME = your_cloud_name
@@ -41,8 +42,8 @@ petstagram/
     CLOUDINARY_API_SECRET = your_api_secret
     CLOUDINARY_UPLOAD_PRESET = your_upload_preset
    ```
-4. 📱 Select simulator or device target
-5. ▶️ Press Run (⌘R)
+5. 📱 Select simulator or device target
+6. ▶️ Press Run (⌘R)
 
 ## 🤝 Contributing
 
