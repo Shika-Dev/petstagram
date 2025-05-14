@@ -15,11 +15,15 @@ final class LoginPageViewModel: ObservableObject {
     @Published var error: String?
     
     private let useCase: AuthUseCases
+    private let userUseCase: UserUseCases
     private let authStateManager: AuthStateManager
+    private let userDefaultsManager: UserDefaultsManager
     
-    init(useCase: AuthUseCases, authStateManager: AuthStateManager) {
+    init(useCase: AuthUseCases, authStateManager: AuthStateManager, userUseCase: UserUseCases, userDefaultsManager: UserDefaultsManager) {
         self.useCase = useCase
         self.authStateManager = authStateManager
+        self.userUseCase = userUseCase
+        self.userDefaultsManager = userDefaultsManager
     }
     
     func login() {
@@ -34,12 +38,19 @@ final class LoginPageViewModel: ObservableObject {
         Task {
             do {
                 let user = try await useCase.signIn(email: email.lowercased(), password: password)
-                print("Successfully signed in user: \(user.uid)")
-                UserDefaultsManager.shared.userUID = user.uid
+                userDefaultsManager.userUID = user.uid
+                
+                let userData = try await userUseCase.getUser(uid: user.uid)
+                
+                userDefaultsManager.username = userData?.userName
+                userDefaultsManager.fullName = userData?.fullName
+                userDefaultsManager.bio = userData?.bio
+                userDefaultsManager.profilePictureUrl = userData?.profileImageUrl
                 
                 // Make sure isNewUser is false for login
                 authStateManager.setNewUserStatus(false)
             } catch {
+                print("Login error: \(error.localizedDescription)")
                 self.error = error.localizedDescription
             }
             isLoading = false
@@ -54,11 +65,18 @@ final class LoginPageViewModel: ObservableObject {
             do {
                 let user = try await useCase.signInWithGoogle()
                 print("Successfully signed in with Google: \(user.uid)")
-                UserDefaultsManager.shared.userUID = user.uid
+                userDefaultsManager.userUID = user.uid
                 
                 // Check if this is a new user by trying to get user data
-                let userEntity = try? await DIContainer.shared.userUseCase.getUser(uid: user.uid)
-                authStateManager.setNewUserStatus(userEntity == nil)
+                let userData = try? await userUseCase.getUser(uid: user.uid)
+                authStateManager.setNewUserStatus(userData == nil)
+                
+                if(userData != nil) {
+                    userDefaultsManager.username = userData?.userName
+                    userDefaultsManager.fullName = userData?.fullName
+                    userDefaultsManager.bio = userData?.bio
+                    userDefaultsManager.profilePictureUrl = userData?.profileImageUrl
+                }
             } catch {
                 self.error = error.localizedDescription
             }

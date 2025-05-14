@@ -1,15 +1,16 @@
 //
-//  CommentEntity.swift
+//  CommentBody.swift
 //  petstagram
 //
-//  Created by Parama Artha on 25/04/25.
+//  Created by Parama Artha on 14/05/25.
 //
 
-struct CommentEntity: Codable, Hashable {
+struct CommentBody: Codable {
     let uid: String
     let postId: String
     let fullName: String
     let profileImgUrl: String
     let comment: String
-    let createdAt: String
+    let createdAt: Double
 }
+

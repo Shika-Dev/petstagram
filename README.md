@@ -1,12 +1,13 @@
-# 🚀 Crypto Price App
+# 🐾 Petstagram
 
-An iOS application for monitoring cryptocurrency prices in real-time.
+An iOS social media application for pet lovers to share and discover pet photos and stories.
 
 ## ✨ Features
 
-- 📊 Display list of cryptocurrencies with current prices
-- 🔄 Pull-to-refresh to update data
-- 🎨 Clean and readable interface
+- 📸 Share photos of your pets
+- 👥 Connect with other pet owners
+- ❤️ Like and comment on pet posts
+- 🔍 Discover new pet content
 - 📱 Support for both iPhone and iPad
 
 ## 🛠 Technologies Used
@@ -14,44 +15,24 @@ An iOS application for monitoring cryptocurrency prices in real-time.
 - 🎯 SwiftUI for UI
 - 🏗 MVVM Architecture
 - 🧹 Clean Architecture
-- 🌐 URLSession for networking
+- 🌐 Firebase for networking
 - ⚡️ Combine for reactive programming
 
 ## 📁 Project Structure
 
 ```
-crypto-price-app/
+petstagram/
 ├── App/
-│   └── crypto_price_appApp.swift
 ├── Presentation/
-│   └── Homepage/
-│       ├── HomepageView.swift
-│       └── HomepageViewModel.swift
 ├── Domain/
-│   ├── Entities/
-│   │   └── CoinEntity.swift
-│   ├── UseCases/
-│   │   └── CoinUseCase.swift
-│   └── Adapters/
-│       └── CoinUseCaseAdapter.swift
 ├── Data/
-│   ├── Services/
-│   │   └── ApiService.swift
-│   ├── Repositories/
-│   │   ├── CoinRepository.swift
-│   │   └── CoinRepositoryImpl.swift
-│   ├── Responses/
-│   │   └── CoinResponse.swift
-│   └── Mapper/
-│       └── Mapper.swift
 └── Preview Content/
-    └── Preview Assets.xcassets
 ```
 
 ## 🚀 How to Run
 
 1. 📥 Clone this repository
-2. 💻 Open `crypto-price-app.xcodeproj` in Xcode
+2. 💻 Open `petstagram.xcodeproj` in Xcode
 3. ⚙️ Add .xconfig file to your project
    ```
     // Cloudinary Credentials
@@ -60,12 +41,16 @@ crypto-price-app/
     CLOUDINARY_API_SECRET = your_api_secret
     CLOUDINARY_UPLOAD_PRESET = your_upload_preset
    ```
-5. 📱 Select simulator or device target
-6. ▶️ Press Run (⌘R)
+4. 📱 Select simulator or device target
+5. ▶️ Press Run (⌘R)
 
 ## 🤝 Contributing
 
 Please feel free to submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+## 🙏 Credits
+
+- UI Design by [TOP UXD](https://www.figma.com/community/file/1315684103497504450/pets-forever-app-ui-kits) - Amazing UI kit for pet-related applications
 
 ## 📄 License
 

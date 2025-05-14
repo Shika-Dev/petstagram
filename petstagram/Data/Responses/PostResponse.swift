@@ -15,9 +15,12 @@ struct PostResponse: Codable {
 }
 
 struct CommentDataResponse: Codable {
-    let username: String
+    let uid: String
+    let postId: String
+    let fullName: String
     let profileImgUrl: String
     let comment: String
+    let createdAt: Double
 }
 
 struct MetaDataResponse: Codable {

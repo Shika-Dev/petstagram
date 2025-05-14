@@ -32,7 +32,7 @@ final class DIContainer {
     
     // MARK: - Repositories
     lazy var repository: Repositories = {
-        return RepositoriesImpl(authService: authService, userService: userService, postService: postService)
+        return RepositoriesImpl(authService: authService, userService: userService, postService: postService, userDefaultsManager: userDefaultsManager)
     }()
     
     // MARK: - UseCases
@@ -49,25 +49,28 @@ final class DIContainer {
     }()
     
     // MARK: - Managers
+    lazy var userDefaultsManager: UserDefaultsManager = {
+        return UserDefaultsManager()
+    }()
     lazy var authStateManager: AuthStateManager = {
-        return AuthStateManager()
+        return AuthStateManager(userDefaultsManager: userDefaultsManager)
     }()
     
     // MARK: - ViewModels
     func generateLoginPageViewModel() -> LoginPageViewModel {
-        return LoginPageViewModel(useCase: authUseCase, authStateManager: authStateManager)
+        return LoginPageViewModel(useCase: authUseCase, authStateManager: authStateManager, userUseCase: userUseCase, userDefaultsManager: userDefaultsManager)
     }
     
     func generateRegisterPageViewModel() -> RegisterPageViewModel {
-        return RegisterPageViewModel(useCase: authUseCase, authStateManager: authStateManager)
+        return RegisterPageViewModel(useCase: authUseCase, authStateManager: authStateManager, userDefaultsManager: userDefaultsManager)
     }
     
     func generateEditProfilePageViewModel() -> EditProfilePageViewModel {
-        return EditProfilePageViewModel(useCase: userUseCase)
+        return EditProfilePageViewModel(useCase: userUseCase, userDefaultsManager: userDefaultsManager)
     }
     
     func generateHomePageViewModel() -> HomePageViewModel {
-        return HomePageViewModel(useCase: postUseCase)
+        return HomePageViewModel(useCase: postUseCase, userDefaultsManager: userDefaultsManager)
     }
     
     func generateSelectPicturePageViewModel() -> SelectPicturePageViewModel {
@@ -75,6 +78,6 @@ final class DIContainer {
     }
     
     func generateProfilePageViewModel() -> ProfilePageViewModel {
-        return ProfilePageViewModel(authStateManager: authStateManager)
+        return ProfilePageViewModel(authStateManager: authStateManager, useCase: userUseCase, userDefaultsManager: userDefaultsManager, postUseCase: postUseCase)
     }
 }

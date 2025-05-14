@@ -25,4 +25,12 @@ class PostUseCaseAdapter: PostUseCases {
     func updateLike(id postId: String, likes list: [String]) async throws {
         return try await repository.updateLike(id: postId, likes: list)
     }
+    
+    func updateComments(id postId: String, comments list: [CommentEntity]) async throws {
+        return try await repository.updateComments(id: postId, comments: list)
+    }
+    
+    func fetchUserPosts() async throws -> [PostEntity] {
+        return try await repository.fetchUserPosts()
+    }
 }

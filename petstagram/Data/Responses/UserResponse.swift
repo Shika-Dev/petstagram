@@ -14,4 +14,17 @@ struct UserResponse: Codable {
     let dateOfBirth: Date
     let bio: String?
     var profileImageUrl: String?
+    var info: InfoResponseData?
+    var lifeEvents: [[String:String]]?
+}
+
+struct InfoResponseData: Codable {
+    var name: String
+    var born: String
+    var gender: String
+    var breed: String
+    var favoriteToy: String?
+    var habits: String?
+    var characteristics: String?
+    var favoriteFood: String?
 }

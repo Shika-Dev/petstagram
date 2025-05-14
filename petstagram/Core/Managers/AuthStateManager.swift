@@ -14,7 +14,10 @@ final class AuthStateManager: ObservableObject {
     @Published var currentUser: User?
     @Published var isNewUser: Bool = false
     
-    init() {
+    private let userDefaultsManager : UserDefaultsManager
+    
+    init(userDefaultsManager: UserDefaultsManager) {
+        self.userDefaultsManager = userDefaultsManager
         setupAuthStateListener()
     }
     
@@ -30,7 +33,7 @@ final class AuthStateManager: ObservableObject {
         isAuthenticated = false
         currentUser = nil
         isNewUser = false
-        UserDefaultsManager.shared.clearUserData()
+        userDefaultsManager.clearUserData()
     }
     
     func setNewUserStatus(_ isNew: Bool) {

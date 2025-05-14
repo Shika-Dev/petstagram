@@ -17,10 +17,12 @@ class RegisterPageViewModel : ObservableObject {
     
     private let useCase: AuthUseCases
     private let authStateManager: AuthStateManager
+    private let userDefaultsManager: UserDefaultsManager
     
-    init(useCase: AuthUseCases, authStateManager: AuthStateManager) {
+    init(useCase: AuthUseCases, authStateManager: AuthStateManager, userDefaultsManager: UserDefaultsManager) {
         self.useCase = useCase
         self.authStateManager = authStateManager
+        self.userDefaultsManager = userDefaultsManager
     }
     
     func register() {
@@ -41,7 +43,7 @@ class RegisterPageViewModel : ObservableObject {
             do {
                 let user = try await useCase.signUp(email: email.lowercased(), password: password)
                 print("Successfully signed up user: \(user.uid)")
-                UserDefaultsManager.shared.userUID = user.uid
+                userDefaultsManager.userUID = user.uid
                 
                 // Set flag to indicate this is a new user
                 authStateManager.setNewUserStatus(true)

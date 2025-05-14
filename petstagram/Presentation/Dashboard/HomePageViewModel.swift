@@ -12,10 +12,15 @@ final class HomePageViewModel: ObservableObject {
     @Published var posts: [PostEntity] = []
     @Published var error: String = ""
     @Published var isRefreshing: Bool = false
-    private let useCase: PostUseCases
+    @Published var showCommentSheet: Bool = false
+    @Published var selectedPost: PostEntity?
     
-    init(useCase: PostUseCases) {
+    private let useCase: PostUseCases
+    private let userDefaultsManager: UserDefaultsManager
+    
+    init(useCase: PostUseCases, userDefaultsManager: UserDefaultsManager) {
         self.useCase = useCase
+        self.userDefaultsManager = userDefaultsManager
         fetchPosts()
     }
     
@@ -26,7 +31,41 @@ final class HomePageViewModel: ObservableObject {
                 let result = try await useCase.fetchPosts()
                 posts = result
                 isRefreshing = false
-                print("refresh successfull")
+            } catch {
+                self.error = error.localizedDescription
+            }
+        }
+    }
+    
+    func postComment(postId: String, comment:String) {
+        Task {
+            do {
+                guard let index = posts.firstIndex(where: { $0.id == postId }) else { return }
+                guard let uid = userDefaultsManager.userUID else { return }
+                let fullName = userDefaultsManager.fullName ?? ""
+                let profilePictureUrl = userDefaultsManager.profilePictureUrl ?? ""
+                
+                var updatedPost = posts[index]
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd MMMM yyyy HH:mm:ss"
+                
+                let dateString = formatter.string(from: Date.now)
+                updatedPost.comments.append(CommentEntity(
+                    uid: uid, postId: postId, fullName: fullName, profileImgUrl: profilePictureUrl, comment: comment, createdAt: dateString
+                ))
+                
+                let updatedCommentCount = updatedPost.commentCount + 1
+                updatedPost.commentCount = updatedCommentCount
+                
+                posts[index] = updatedPost
+                
+                // Update selectedPost if it's the same post
+                if selectedPost?.id == postId {
+                    selectedPost = updatedPost
+                }
+                
+                try await useCase.updateComments(id: posts[index].id, comments: posts[index].comments)
             } catch {
                 self.error = error.localizedDescription
             }
@@ -37,7 +76,7 @@ final class HomePageViewModel: ObservableObject {
         Task {
             do {
                 guard let index = posts.firstIndex(where: { $0.id == postId }) else { return }
-                guard let uid = UserDefaultsManager.shared.userUID else { return }
+                guard let uid = userDefaultsManager.userUID else { return }
                 let currentLikeStatus = posts[index].isLike
                 let newLikeStatus = !currentLikeStatus
                 

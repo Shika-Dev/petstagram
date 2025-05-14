@@ -21,15 +21,20 @@ class EditProfilePageViewModel: ObservableObject {
     @Published var isImagePickerPresented: Bool = false
     @Published var isProfileSaved: Bool = false
     
-    private let useCase : UserUseCases
+    private var info: InfoData = InfoData.empty()
+    private var lifeEvents: [[String:String]] = []
     
-    init(useCase : UserUseCases){
+    private let useCase : UserUseCases
+    private let userDefaultsManager: UserDefaultsManager
+    
+    init(useCase : UserUseCases, userDefaultsManager: UserDefaultsManager){
         self.useCase = useCase
+        self.userDefaultsManager = userDefaultsManager
         loadUserProfile()
     }
     
     private func loadUserProfile() {
-        guard let uid = UserDefaultsManager.shared.userUID else { return }
+        guard let uid = userDefaultsManager.userUID else { return }
         
         Task {
             do {
@@ -39,6 +44,8 @@ class EditProfilePageViewModel: ObservableObject {
                     dateOfBirth = user.dateOfBirth
                     bio = user.bio ?? ""
                     profileImageUrl = user.profileImageUrl
+                    info = user.info
+                    lifeEvents = user.lifeEvents
                 }
             } catch {
                 self.error = error.localizedDescription
@@ -52,7 +59,7 @@ class EditProfilePageViewModel: ObservableObject {
             return
         }
         
-        guard let uid = UserDefaultsManager.shared.userUID else {
+        guard let uid = userDefaultsManager.userUID else {
             error = "User not authenticated"
             return
         }
@@ -67,7 +74,9 @@ class EditProfilePageViewModel: ObservableObject {
                     fullName: fullName,
                     userName: userName,
                     dateOfBirth: dateOfBirth,
-                    bio: bio
+                    bio: bio,
+                    info: info,
+                    lifeEvents: lifeEvents
                 )
                 
                 // Pass the new image if there is one, otherwise just update the text fields
