@@ -10,7 +10,7 @@ import GoogleSignIn
 import FirebaseCore
 
 class AuthService {
-    func signIn(email: String, password: String) async throws -> User {
+    func signIn(email: String, password: String) async throws -> AuthUser {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             return result.user
@@ -19,7 +19,7 @@ class AuthService {
         }
     }
     
-    func signUp(email: String, password: String) async throws -> User {
+    func signUp(email: String, password: String) async throws -> AuthUser {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             return result.user
@@ -28,7 +28,7 @@ class AuthService {
         }
     }
     
-    func signInWithGoogle() async throws -> User {
+    func signInWithGoogle() async throws -> AuthUser {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             throw NSError(domain: "GoogleSignIn", code: -1, userInfo: [NSLocalizedDescriptionKey: "No client ID found"])
         }

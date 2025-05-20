@@ -13,9 +13,9 @@ protocol Repositories {
     func fetchPosts() async throws -> [PostEntity]
     func fetchUserPosts() async throws -> [PostEntity]
     func uploadPost(image: UIImage, caption: String) async throws -> Void
-    func signIn(email: String, password: String) async throws -> User
-    func signInWithGoogle() async throws -> User
-    func signUp(email: String, password: String) async throws -> User
+    func signIn(email: String, password: String) async throws -> AuthUser
+    func signInWithGoogle() async throws -> AuthUser
+    func signUp(email: String, password: String) async throws -> AuthUser
     func getUser(uid: String) async throws -> UserEntity?
     func createOrUpdateUser(user: UserEntity, newImage: UIImage?) async throws -> Void
     func updateLike(id postId: String, likes list: [String]) async throws -> Void

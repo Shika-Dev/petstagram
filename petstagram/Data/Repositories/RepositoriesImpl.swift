@@ -55,15 +55,15 @@ class RepositoriesImpl : Repositories {
         return try await postService.updateComment(postId: postId, list: Mapper.commentBody(from: list))
     }
     
-    func signIn(email: String, password: String) async throws -> User {
+    func signIn(email: String, password: String) async throws -> AuthUser {
         return try await authService.signIn(email: email, password: password)
     }
     
-    func signInWithGoogle() async throws -> User {
+    func signInWithGoogle() async throws -> AuthUser {
         return try await authService.signInWithGoogle()
     }
     
-    func signUp(email: String, password: String) async throws -> User {
+    func signUp(email: String, password: String) async throws -> AuthUser {
         return try await authService.signUp(email: email, password: password)
     }
     

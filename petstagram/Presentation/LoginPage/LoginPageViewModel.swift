@@ -16,17 +16,17 @@ final class LoginPageViewModel: ObservableObject {
     
     private let useCase: AuthUseCases
     private let userUseCase: UserUseCases
-    private let authStateManager: AuthStateManager
+    private let authStateManager: AuthStateManaging
     private let userDefaultsManager: UserDefaultsManager
     
-    init(useCase: AuthUseCases, authStateManager: AuthStateManager, userUseCase: UserUseCases, userDefaultsManager: UserDefaultsManager) {
+    init(useCase: AuthUseCases, authStateManager: AuthStateManaging, userUseCase: UserUseCases, userDefaultsManager: UserDefaultsManager) {
         self.useCase = useCase
         self.authStateManager = authStateManager
         self.userUseCase = userUseCase
         self.userDefaultsManager = userDefaultsManager
     }
     
-    func login() {
+    func login() async {
         guard !email.isEmpty, !password.isEmpty else {
             error = "Please fill in all fields"
             return
@@ -35,52 +35,35 @@ final class LoginPageViewModel: ObservableObject {
         isLoading = true
         error = nil
         
-        Task {
-            do {
-                let user = try await useCase.signIn(email: email.lowercased(), password: password)
-                userDefaultsManager.userUID = user.uid
-                
-                let userData = try await userUseCase.getUser(uid: user.uid)
-                
-                userDefaultsManager.username = userData?.userName
-                userDefaultsManager.fullName = userData?.fullName
-                userDefaultsManager.bio = userData?.bio
-                userDefaultsManager.profilePictureUrl = userData?.profileImageUrl
-                
-                // Make sure isNewUser is false for login
-                authStateManager.setNewUserStatus(false)
-            } catch {
-                print("Login error: \(error.localizedDescription)")
-                self.error = error.localizedDescription
-            }
-            isLoading = false
+        do {
+            let user = try await useCase.signIn(email: email.lowercased(), password: password)
+            userDefaultsManager.userUID = user.uid
+            
+            // Make sure isNewUser is false for login
+            authStateManager.setNewUserStatus(false)
+        } catch {
+            print("Login error: \(error.localizedDescription)")
+            self.error = error.localizedDescription
         }
+        isLoading = false
     }
     
-    func signInWithGoogle() {
+    func signInWithGoogle() async {
         isLoading = true
         error = nil
         
-        Task {
-            do {
-                let user = try await useCase.signInWithGoogle()
-                print("Successfully signed in with Google: \(user.uid)")
-                userDefaultsManager.userUID = user.uid
-                
-                // Check if this is a new user by trying to get user data
-                let userData = try? await userUseCase.getUser(uid: user.uid)
-                authStateManager.setNewUserStatus(userData == nil)
-                
-                if(userData != nil) {
-                    userDefaultsManager.username = userData?.userName
-                    userDefaultsManager.fullName = userData?.fullName
-                    userDefaultsManager.bio = userData?.bio
-                    userDefaultsManager.profilePictureUrl = userData?.profileImageUrl
-                }
-            } catch {
-                self.error = error.localizedDescription
-            }
-            isLoading = false
+        do {
+            let user = try await useCase.signInWithGoogle()
+            print("Successfully signed in with Google: \(user.uid)")
+            userDefaultsManager.userUID = user.uid
+            
+            // Check if this is a new user by trying to get user data
+            let userData = try? await userUseCase.getUser(uid: user.uid)
+            authStateManager.setNewUserStatus(userData == nil)
+            
+        } catch {
+            self.error = error.localizedDescription
         }
+        isLoading = false
     }
 }

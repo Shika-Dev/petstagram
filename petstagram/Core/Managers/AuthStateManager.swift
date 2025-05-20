@@ -8,8 +8,18 @@
 import Foundation
 import FirebaseAuth
 
+//MARK: Protocol
 @MainActor
-final class AuthStateManager: ObservableObject {
+protocol AuthStateManaging {
+    var isAuthenticated: Bool { get }
+    var currentUser: User? { get }
+    var isNewUser: Bool { get }
+    func setNewUserStatus(_ isNew: Bool)
+    func signOut() throws
+}
+
+@MainActor
+final class AuthStateManager: ObservableObject, AuthStateManaging {
     @Published var isAuthenticated: Bool = false
     @Published var currentUser: User?
     @Published var isNewUser: Bool = false

@@ -15,15 +15,15 @@ final class AuthUseCaseAdapter: AuthUseCases {
         self.repository = repository
     }
     
-    func signIn(email: String, password: String) async throws -> User {
+    func signIn(email: String, password: String) async throws -> AuthUser {
         return try await repository.signIn(email: email, password: password)
     }
     
-    func signInWithGoogle() async throws -> User {
+    func signInWithGoogle() async throws -> AuthUser {
         return try await repository.signInWithGoogle()
     }
     
-    func signUp(email: String, password: String) async throws -> User {
+    func signUp(email: String, password: String) async throws -> AuthUser {
         return try await repository.signUp(email: email, password: password)
     }
 } 

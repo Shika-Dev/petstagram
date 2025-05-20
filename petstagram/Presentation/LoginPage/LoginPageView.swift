@@ -50,7 +50,11 @@ struct LoginPageView : View {
                 
                 FilledButton(
                     label: viewModel.isLoading ? "Signing in..." : "Sign In",
-                    action: viewModel.login
+                    action: {
+                        Task {
+                            await viewModel.login()
+                        }
+                    }
                 )
                 .disabled(viewModel.isLoading)
                 .padding()
@@ -82,7 +86,9 @@ struct LoginPageView : View {
                 )
                 .padding()
                 .onTapGesture {
-                    viewModel.signInWithGoogle()
+                    Task {
+                        await viewModel.signInWithGoogle()
+                    }
                 }
 
                 Spacer()
