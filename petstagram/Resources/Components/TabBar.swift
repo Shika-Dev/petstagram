@@ -13,21 +13,21 @@ struct CustomTabBar: View {
     var body: some View {
         HStack {
             TabButton(imageName: selectedTab == 0 ? "PawFilled" : "Paw",
-                      isSelected: selectedTab == 0) {
+                      isSelected: selectedTab == 0, identifier: "Home") {
                 selectedTab = 0
             }
             
             Spacer()
             
             TabButton(imageName: selectedTab == 1 ? "plus.app.fill" : "plus.app",
-                      isSelected: selectedTab == 1) {
+                      isSelected: selectedTab == 1, identifier: "AddPost") {
                 selectedTab = 1
             }
             
             Spacer()
             
             TabButton(imageName: selectedTab == 2 ? "PersonFilled" : "Person",
-                      isSelected: selectedTab == 2) {
+                      isSelected: selectedTab == 2, identifier: "Profile") {
                 selectedTab = 2
             }
         }
@@ -41,12 +41,15 @@ struct CustomTabBar: View {
                     .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: -2)
                     .ignoresSafeArea()
         )
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("NavigationBar")
     }
 }
 
 struct TabButton: View {
     let imageName: String
     let isSelected: Bool
+    let identifier: String
     let action: () -> Void
     
     var body: some View {
@@ -62,6 +65,7 @@ struct TabButton: View {
                 }
             }
             .foregroundColor(isSelected ? Theme.Colors.primary1 : Theme.Colors.dark1)
+            .accessibilityIdentifier(identifier)
         }
     }
 }

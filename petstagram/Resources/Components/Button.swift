@@ -21,6 +21,7 @@ struct FilledButton : View {
                 .background(Theme.Colors.primary1)
                 .clipShape(.capsule)
         }
+        .accessibilityIdentifier(label)
     }
 }
 
@@ -38,5 +39,6 @@ struct OutlinedButton : View {
                 .clipShape(.capsule)
                 .border(Theme.Colors.primary1)
         }
+        .accessibilityIdentifier(label)
     }
 }

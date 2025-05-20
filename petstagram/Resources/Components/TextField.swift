@@ -29,6 +29,7 @@ struct CustomTextField : View {
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                         )
                         .textInputAutocapitalization(.never)
+                        .accessibilityIdentifier(placeholder)
                     } else {
                         SecureField(
                             "",
@@ -38,6 +39,7 @@ struct CustomTextField : View {
                                 .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                         )
                         .textInputAutocapitalization(.never)
+                        .accessibilityIdentifier(placeholder)
                     }
                 } else if isTextArea {
                     TextEditor(text: $text)
@@ -52,6 +54,7 @@ struct CustomTextField : View {
                                 .padding(.top, 6),
                             alignment: .topLeading
                         )
+                        .accessibilityIdentifier(placeholder)
                 } else {
                     TextField(
                         "",
@@ -61,6 +64,7 @@ struct CustomTextField : View {
                             .foregroundStyle(Theme.Colors.dark2.opacity(0.5))
                     )
                     .textInputAutocapitalization(.never)
+                    .accessibilityIdentifier(placeholder)
                 }
             }
             .font(Theme.Fonts.bodyLargeBold)

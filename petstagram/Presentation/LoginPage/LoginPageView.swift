@@ -72,6 +72,8 @@ struct LoginPageView : View {
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 24)
+                .accessibilityElement(children: .contain)
+                .accessibilityIdentifier("Divider")
                 
                 HStack{
                     Image("GoogleColored")
@@ -90,6 +92,8 @@ struct LoginPageView : View {
                         await viewModel.signInWithGoogle()
                     }
                 }
+                .accessibilityElement(children: .contain)
+                .accessibilityIdentifier("Google SignIn Button")
 
                 Spacer()
                 HStack{
