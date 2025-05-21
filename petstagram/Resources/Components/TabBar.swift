@@ -62,10 +62,13 @@ struct TabButton: View {
                     Image(imageName)
                         .renderingMode(.template)
                         .frame(width: 24, height: 24)
+                        
                 }
             }
             .foregroundColor(isSelected ? Theme.Colors.primary1 : Theme.Colors.dark1)
-            .accessibilityIdentifier(identifier)
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier(imageName)
         }
+        .accessibilityIdentifier(identifier)
     }
 }

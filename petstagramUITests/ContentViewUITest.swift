@@ -8,34 +8,68 @@
 import XCTest
 
 final class ContentViewUITest: XCTestCase {
-
+    let app = XCUIApplication()
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
+        
+        // Login if not already authenticated
+        if app.otherElements["NavigationBar"].exists == false {
+            try login()
         }
+    }
+    
+    private func login() throws {
+        let emailTextField = app.textFields["Email"]
+        emailTextField.tap()
+        emailTextField.typeText("test@icloud.com")
+        
+        let passwordTextField = app.secureTextFields["Password"]
+        passwordTextField.tap()
+        passwordTextField.typeText("test123")
+        
+        // Tap sign in button
+        app.buttons["Sign In"].tap()
+        
+        // Wait for navigation to complete
+        let contentView = app.otherElements["NavigationBar"]
+        let appeared = contentView.waitForExistence(timeout: 5)
+        XCTAssertTrue(appeared, "Should navigate to Content view after successful login")
+    }
+    
+    func testContentPageInitialState() throws {
+        // Verify initial UI elements are present
+        let navBar = app.otherElements["NavigationBar"]
+        let homeButton = navBar.buttons["Home"]
+        let addButton = navBar.buttons["AddPost"]
+        let profileButton = navBar.buttons["Profile"]
+        
+        XCTAssertTrue(navBar.exists)
+        XCTAssertTrue(homeButton.exists)
+        XCTAssertTrue(addButton.exists)
+        XCTAssertTrue(profileButton.exists)
+        
+        //Verify icon and TabView change
+        homeButton.tap()
+        
+        XCTAssertTrue(homeButton.images["PawFilled"].exists)
+        XCTAssertTrue(addButton.images["plus.app"].exists)
+        XCTAssertTrue(profileButton.images["Person"].exists)
+        XCTAssertTrue(app.staticTexts["Petstagram"].exists)
+        
+        addButton.tap()
+        
+        XCTAssertTrue(homeButton.images["Paw"].exists)
+        XCTAssertTrue(addButton.images["plus.app.fill"].exists)
+        XCTAssertTrue(profileButton.images["Person"].exists)
+        XCTAssertTrue(app.staticTexts["New post"].exists)
+        
+        profileButton.tap()
+        
+        XCTAssertTrue(homeButton.images["Paw"].exists)
+        XCTAssertTrue(addButton.images["plus.app"].exists)
+        XCTAssertTrue(profileButton.images["PersonFilled"].exists)
+        XCTAssertTrue(app.buttons["Sign Out"].exists)
     }
 }
