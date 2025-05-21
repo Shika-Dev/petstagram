@@ -150,6 +150,33 @@ final class LoginPageUITests: XCTestCase {
         XCTAssertTrue(loadingButton.isEnabled == false) // Button should be disabled during loading
     }
     
+    func testPasswordVisibilityToggle() throws {
+        // Get password field and visibility toggle button
+        let passwordTextField = app.secureTextFields["Password"]
+        
+        // Enter some password text
+        passwordTextField.tap()
+        passwordTextField.typeText("testpassword")
+        
+        // Find and tap the visibility toggle button (it's an Image with SF Symbol)
+        let visibilityButton = app.buttons["eye.fill"]
+        XCTAssertTrue(visibilityButton.exists)
+        visibilityButton.tap()
+        
+        // Verify password is now visible (secure text field should be replaced with regular text field)
+        let visiblePasswordField = app.textFields["Password"]
+        XCTAssertTrue(visiblePasswordField.exists)
+        XCTAssertEqual(visiblePasswordField.value as? String, "testpassword")
+        
+        // Toggle visibility back to secure
+        let hidePasswordButton = app.buttons["eye.slash.fill"]
+        XCTAssertTrue(hidePasswordButton.exists)
+        hidePasswordButton.tap()
+        
+        // Verify password is hidden again
+        XCTAssertTrue(passwordTextField.exists)
+    }
+    
     func testLoginSuccess() throws {
         // Enter valid credentials
         let emailTextField = app.textFields["Email"]

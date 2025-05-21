@@ -76,6 +76,7 @@ struct CustomTextField : View {
                 }) {
                     Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
                         .foregroundColor(isFocused ? Theme.Colors.primary1 : Theme.Colors.dark2.opacity(0.5))
+                        .accessibilityIdentifier(showPassword ? "eye.slash.fill" : "eye.fill")
                 }
                 .buttonStyle(PlainButtonStyle())
             }
