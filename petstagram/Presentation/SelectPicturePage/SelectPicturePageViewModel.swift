@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+@MainActor
 class SelectPicturePageViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var isImagePickerPresented: Bool = false
@@ -21,7 +22,7 @@ class SelectPicturePageViewModel: ObservableObject {
     init(useCase : PostUseCases){
         self.useCase = useCase
     }
-
+    
     func uploadPost() async {
         guard !imageCaption.isEmpty, selectedImage != nil else {
             error = "Please fill in all required fields"
