@@ -16,17 +16,17 @@ class RegisterPageViewModel : ObservableObject {
     @Published var error: String?
     
     private let useCase: AuthUseCases
-    private let authStateManager: AuthStateManager
+    private let authStateManager: AuthStateManaging
     private let userDefaultsManager: UserDefaultsManager
     
-    init(useCase: AuthUseCases, authStateManager: AuthStateManager, userDefaultsManager: UserDefaultsManager) {
+    init(useCase: AuthUseCases, authStateManager: AuthStateManaging, userDefaultsManager: UserDefaultsManager) {
         self.useCase = useCase
         self.authStateManager = authStateManager
         self.userDefaultsManager = userDefaultsManager
     }
     
-    func register() {
-        guard !email.isEmpty, !password.isEmpty else {
+    func register() async {
+        guard !email.isEmpty, !password.isEmpty, !reTypePassword.isEmpty else {
             error = "Please fill in all fields"
             return
         }
@@ -39,18 +39,16 @@ class RegisterPageViewModel : ObservableObject {
         isLoading = true
         error = nil
         
-        Task {
-            do {
-                let user = try await useCase.signUp(email: email.lowercased(), password: password)
-                print("Successfully signed up user: \(user.uid)")
-                userDefaultsManager.userUID = user.uid
-                
-                // Set flag to indicate this is a new user
-                authStateManager.setNewUserStatus(true)
-            } catch {
-                self.error = error.localizedDescription
-            }
-            isLoading = false
+        do {
+            let user = try await useCase.signUp(email: email.lowercased(), password: password)
+            print("Successfully signed up user: \(user.uid)")
+            userDefaultsManager.userUID = user.uid
+            
+            // Set flag to indicate this is a new user
+            authStateManager.setNewUserStatus(true)
+        } catch {
+            self.error = error.localizedDescription
         }
+        isLoading = false
     }
 }

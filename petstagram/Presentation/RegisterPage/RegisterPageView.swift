@@ -50,7 +50,11 @@ struct RegisterPageView: View {
             
             FilledButton(
                 label: viewModel.isLoading ? "Signing up..." : "Sign Up",
-                action: viewModel.register
+                action: {
+                    Task {
+                        await viewModel.register()
+                    }
+                }
             )
             .disabled(viewModel.isLoading)
             .padding()

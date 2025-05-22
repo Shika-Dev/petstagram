@@ -96,6 +96,7 @@ struct EditProfilePageView: View {
                 .padding()
             }
         }
+        .accessibilityIdentifier("EditProfilePage")
         .sheet(isPresented: $viewModel.isImagePickerPresented) {
             ImagePicker(selectedImage: Binding(
                 get: { viewModel.selectedImage },
