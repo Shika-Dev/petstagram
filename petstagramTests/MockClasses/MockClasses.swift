@@ -9,6 +9,7 @@ import XCTest
 import FirebaseAuth
 @testable import petstagram
 
+// MARK: USECASE
 class MockAuthUseCases: AuthUseCases {
     var mockSignInResult: AuthUser?
     var mockGoogleSignInResult: AuthUser?
@@ -57,6 +58,35 @@ class MockUserUseCases: UserUseCases {
     }
 }
 
+class MockPostUseCase: PostUseCases {
+    var shouldThrowError = false
+    
+    func fetchPosts() async throws -> [petstagram.PostEntity] {
+        return []
+    }
+    
+    func updateLike(id postId: String, likes list: [String]) async throws {
+        
+    }
+    
+    func fetchUserPosts() async throws -> [petstagram.PostEntity] {
+        return []
+    }
+    
+    func updateComments(id postId: String, comments list: [petstagram.CommentEntity]) async throws {
+        
+    }
+    
+    func uploadPosts(image: UIImage, caption: String) async throws {
+        if shouldThrowError {
+            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Test error"])
+        }
+        // Simulate network delay
+        try await Task.sleep(nanoseconds: 500_000_000)
+    }
+}
+
+// MARK: MANAGERS
 class MockAuthStateManager: AuthStateManaging {
     var isAuthenticated: Bool = false
     var currentUser: User?
@@ -114,6 +144,7 @@ class MockUserDefaultsManager: UserDefaultsManager {
     }
 }
 
+// MARK: MODEL
 class MockAuthUser: AuthUser {
     var uid: String
     var email: String?

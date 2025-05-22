@@ -10,6 +10,7 @@ import PhotosUI
 
 struct SelectPicturePageView: View {
     @StateObject private var viewModel: SelectPicturePageViewModel
+    @Environment(\.pixelLength) private var pixelLength
     
     init() {
         _viewModel = StateObject(wrappedValue: DIContainer.shared.generateSelectPicturePageViewModel())
@@ -18,22 +19,7 @@ struct SelectPicturePageView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack {
-                    // Header
-                    ZStack {
-                        Text("New post")
-                            .font(Theme.Fonts.bodyLargeBold)
-                            .frame(maxWidth: .infinity)
-                        Button("Next") {
-                            viewModel.uploadPost()
-                        }
-                            .font(Theme.Fonts.bodyLargeRegular)
-                            .foregroundColor(Theme.Colors.primary1)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                    }
-                    .padding(.horizontal)
-                    .padding(.top)
-                    
+                ScrollView {
                     // Preview
                     if let selectedImage = viewModel.selectedImage {
                         Image(uiImage: selectedImage)
@@ -58,6 +44,8 @@ struct SelectPicturePageView: View {
                             .onTapGesture {
                                 viewModel.isImagePickerPresented = true
                             }
+                            .accessibilityElement(children: .contain)
+                            .accessibilityIdentifier("ImagePlaceholder")
                     }
                     
                     CustomTextField(placeholder: "Add your Caption", text: $viewModel.imageCaption, required: true, isTextArea: true
@@ -70,8 +58,26 @@ struct SelectPicturePageView: View {
                             .foregroundColor(.red)
                             .padding(.horizontal)
                     }
-                    
-                    Spacer()
+                }
+                .accessibilityElement(children: .contain)
+                .padding(.top, pixelLength)
+                .safeAreaInset(edge: .top){
+                    // Header
+                    ZStack {
+                        Text("New post")
+                            .font(Theme.Fonts.bodyLargeBold)
+                            .frame(maxWidth: .infinity)
+                        Button("Next") {
+                            Task {
+                                await viewModel.uploadPost()
+                            }
+                        }
+                            .font(Theme.Fonts.bodyLargeRegular)
+                            .foregroundColor(Theme.Colors.primary1)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
                 if viewModel.isLoading {
                     Color.black.opacity(0.4)
@@ -90,6 +96,7 @@ struct SelectPicturePageView: View {
                 get: { viewModel.selectedImage },
                 set: { viewModel.didSelectImage($0) }
             ))
+            .accessibilityIdentifier("ImagePicker")
         }
     }
 }

@@ -22,7 +22,7 @@ class SelectPicturePageViewModel: ObservableObject {
         self.useCase = useCase
     }
 
-    func uploadPost(){
+    func uploadPost() async {
         guard !imageCaption.isEmpty, selectedImage != nil else {
             error = "Please fill in all required fields"
             return
@@ -31,14 +31,13 @@ class SelectPicturePageViewModel: ObservableObject {
         isLoading = true
         error = nil
         
-        Task{
-            do {
-                try await useCase.uploadPosts(image: selectedImage!, caption: imageCaption)
-                isLoading = false
-                isPostSaved = true
-            } catch {
-                self.error = error.localizedDescription
-            }
+        do {
+            try await useCase.uploadPosts(image: selectedImage!, caption: imageCaption)
+            isLoading = false
+            isPostSaved = true
+        } catch {
+            self.error = error.localizedDescription
+            isLoading = false
         }
     }
     
