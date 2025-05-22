@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct EditProfilePageView: View {
     @StateObject var viewModel: EditProfilePageViewModel
+    @Environment(\.pixelLength) private var pixelLength
     
     init() {
         let di = DIContainer.shared
@@ -18,13 +19,13 @@ struct EditProfilePageView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                Spacer()
+            ScrollView {
                 // Profile Image Section
                 ZStack {
                     Circle()
                         .fill(Theme.Colors.grey1)
                         .frame(width: 108, height: 108)
+                        .accessibilityIdentifier("ProfileImage")
                     
                     if let selectedImage = viewModel.selectedImage {
                         Image(uiImage: selectedImage)
@@ -50,6 +51,7 @@ struct EditProfilePageView: View {
                 .onTapGesture {
                     viewModel.isImagePickerPresented = true
                 }
+                .accessibilityElement(children: .contain)
                 
                 // Form Fields
                 VStack(spacing: 16) {
@@ -67,6 +69,7 @@ struct EditProfilePageView: View {
                         
                         DatePicker("", selection: $viewModel.dateOfBirth, displayedComponents: .date)
                             .labelsHidden()
+                            .accessibilityIdentifier("DatePicker")
                     }
                     .padding()
                     .background(
@@ -76,6 +79,7 @@ struct EditProfilePageView: View {
                     
                     CustomTextField(placeholder: "Bio", text: $viewModel.bio, isTextArea: true)
                 }
+                .accessibilityElement(children: .contain)
                 .padding(.horizontal)
                 
                 if let error = viewModel.error {
@@ -84,17 +88,17 @@ struct EditProfilePageView: View {
                         .foregroundColor(.red)
                         .padding(.horizontal)
                 }
-                
-                Spacer()
-                
-                // Continue Button
-                FilledButton(
-                    label: viewModel.isLoading ? "Saving..." : "Continue",
-                    action: viewModel.updateProfile
-                )
-                .disabled(viewModel.isLoading)
-                .padding()
             }
+        }
+        .padding(.top, pixelLength)
+        .safeAreaInset(edge: .bottom){
+            // Continue Button
+            FilledButton(
+                label: viewModel.isLoading ? "Saving..." : "Continue",
+                action: viewModel.updateProfile
+            )
+            .disabled(viewModel.isLoading)
+            .padding()
         }
         .accessibilityIdentifier("EditProfilePage")
         .sheet(isPresented: $viewModel.isImagePickerPresented) {
@@ -102,6 +106,7 @@ struct EditProfilePageView: View {
                 get: { viewModel.selectedImage },
                 set: { viewModel.didSelectImage($0) }
             ))
+            .accessibilityIdentifier("ImagePicker")
         }
         .navigationDestination(isPresented: $viewModel.isProfileSaved) {
             ContentPageView()

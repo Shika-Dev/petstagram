@@ -30,26 +30,26 @@ class EditProfilePageViewModel: ObservableObject {
     init(useCase : UserUseCases, userDefaultsManager: UserDefaultsManager){
         self.useCase = useCase
         self.userDefaultsManager = userDefaultsManager
-        loadUserProfile()
+        Task {
+            await loadUserProfile()
+        }
     }
     
-    private func loadUserProfile() {
+    func loadUserProfile() async {
         guard let uid = userDefaultsManager.userUID else { return }
         
-        Task {
-            do {
-                if let user = try await useCase.getUser(uid: uid) {
-                    fullName = user.fullName
-                    userName = user.userName
-                    dateOfBirth = user.dateOfBirth
-                    bio = user.bio ?? ""
-                    profileImageUrl = user.profileImageUrl
-                    info = user.info
-                    lifeEvents = user.lifeEvents
-                }
-            } catch {
-                self.error = error.localizedDescription
+        do {
+            if let user = try await useCase.getUser(uid: uid) {
+                fullName = user.fullName
+                userName = user.userName
+                dateOfBirth = user.dateOfBirth
+                bio = user.bio ?? ""
+                profileImageUrl = user.profileImageUrl
+                info = user.info
+                lifeEvents = user.lifeEvents
             }
+        } catch {
+            self.error = error.localizedDescription
         }
     }
     

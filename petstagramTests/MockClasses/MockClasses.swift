@@ -40,6 +40,7 @@ class MockAuthUseCases: AuthUseCases {
 class MockUserUseCases: UserUseCases {
     var mockGetUserResult: UserEntity?
     var mockError: Error?
+    var updateUserCalled = false
     
     func getUser(uid: String) async throws -> UserEntity? {
         if let error = mockError {
@@ -52,6 +53,7 @@ class MockUserUseCases: UserUseCases {
         if let error = mockError {
             throw error
         }
+        updateUserCalled = true
     }
 }
 

@@ -53,6 +53,7 @@ struct ProfilePageView : View {
                                 .background(Theme.Colors.primary1)
                                 .cornerRadius(16)
                             }
+                            .accessibilityIdentifier("EditProfileButton")
                         }
                         .padding(.leading)
                     }
