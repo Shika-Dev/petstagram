@@ -61,13 +61,21 @@ class MockUserUseCases: UserUseCases {
 class MockPostUseCase: PostUseCases {
     var mockPosts: [PostEntity] = []
     var shouldThrowError = false
+    var updateCommentCalled = false
+    var updateLikeCalled = false
     
     func fetchPosts() async throws -> [petstagram.PostEntity] {
-        return []
+        if shouldThrowError {
+            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Fetch Post Test error"])
+        }
+        return mockPosts
     }
     
     func updateLike(id postId: String, likes list: [String]) async throws {
-        
+        if shouldThrowError {
+            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Update Like Test error"])
+        }
+        updateLikeCalled = true
     }
     
     func fetchUserPosts() async throws -> [petstagram.PostEntity] {
@@ -78,7 +86,10 @@ class MockPostUseCase: PostUseCases {
     }
     
     func updateComments(id postId: String, comments list: [petstagram.CommentEntity]) async throws {
-        
+        if shouldThrowError {
+            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Update Comments Test error"])
+        }
+        updateCommentCalled = true
     }
     
     func uploadPosts(image: UIImage, caption: String) async throws {

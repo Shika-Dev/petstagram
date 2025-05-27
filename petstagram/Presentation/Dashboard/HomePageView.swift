@@ -38,7 +38,9 @@ struct HomePageView: View {
             }
             .scrollIndicators(.hidden)
             .refreshable {
-                viewModel.fetchPosts()
+                Task {
+                    await viewModel.fetchPosts()
+                }
             }
         }
     }
@@ -72,12 +74,16 @@ struct PostElementView : View {
                     .font(.system(size: 24))
                     .foregroundStyle(post.isLike ? Theme.Colors.primary1 : Theme.Colors.dark1)
                     .onTapGesture {
-                        viewModel.updateLike(id: post.id)
+                        Task {
+                            await viewModel.updateLike(id: post.id)
+                        }
                     }
+                    .accessibilityIdentifier("LikeButton")
                 Text("\(post.likesCount)")
                     .font(Theme.Fonts.bodyLargeMedium)
                     .foregroundStyle(Theme.Colors.dark1)
                     .padding(.trailing)
+                    .accessibilityIdentifier("LikeCount")
                 Image(systemName: "message")
                     .font(.system(size: 24))
                     .foregroundStyle(Theme.Colors.dark1)
@@ -85,9 +91,11 @@ struct PostElementView : View {
                         viewModel.selectedPost = post
                         viewModel.showCommentSheet = true
                     }
+                    .accessibilityIdentifier("CommentButton")
                 Text("\(post.commentCount)")
                     .font(Theme.Fonts.bodyLargeMedium)
                     .foregroundStyle(Theme.Colors.dark1)
+                    .accessibilityIdentifier("CommentCount")
             }
             .padding(.vertical, 8)
             Text(post.caption)
@@ -103,6 +111,8 @@ struct PostElementView : View {
                 CommentSheetView(post: selectedPost, viewModel: viewModel)
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("PostElement")
     }
 }
 
@@ -136,8 +146,10 @@ struct CommentSheetView: View {
                     .frame(height: 40)
                     
                     Button(action: {
-                        viewModel.postComment(postId: post.id, comment: commentText)
-                        commentText = ""
+                        Task {
+                            await viewModel.postComment(postId: post.id, comment: commentText)
+                            commentText = ""
+                        }
                     }) {
                         Image("PaperplaneFilled")
                             .renderingMode(.template)
@@ -146,6 +158,7 @@ struct CommentSheetView: View {
                             .rotationEffect(Angle(degrees: 315))
                     }
                     .disabled(commentText.isEmpty)
+                    .accessibilityIdentifier("SendCommentButton")
                 }
                 .padding()
                 .background(.white)
