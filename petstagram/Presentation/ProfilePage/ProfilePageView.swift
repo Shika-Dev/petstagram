@@ -90,6 +90,7 @@ struct ProfilePageView : View {
                                 }
                             )
                             .tag(1)
+                            .accessibilityIdentifier("PostTab")
                     }
                     .frame(height: tabHeights[selectedProfileTab] + 64)
                     
@@ -113,9 +114,11 @@ struct ProfilePageView : View {
         }
         .sheet(isPresented: $viewModel.showEditInfoSheet) {
             EditInfoSheetView(isPresented: $viewModel.showEditInfoSheet, viewModel: viewModel)
+                .accessibilityIdentifier("EditInfoSheet")
         }
         .sheet(isPresented: $viewModel.showEditLifeEventSheet) {
             EditLifeEventSheetView(isPresented: $viewModel.showEditLifeEventSheet, viewModel: viewModel)
+                .accessibilityIdentifier("EditLifeEventSheet")
         }
     }
 }
@@ -189,6 +192,7 @@ struct EditLifeEventSheetView: View {
                         .foregroundStyle(Theme.Colors.primary1)
                         .padding()
                     }
+                    .accessibilityIdentifier("AddLifeEventButton")
                 }
                 .padding(.vertical)
             }
@@ -234,6 +238,7 @@ struct InfoTab: View {
                             .frame(width: 20, height: 20)
                             .foregroundStyle(Theme.Colors.primary1)
                     }
+                    .accessibilityIdentifier("EditInformationButton")
                 }
                 InfoContent(label: "Name:", value: viewModel.name)
                 InfoContent(label: "Born:", value: viewModel.born)
@@ -266,6 +271,7 @@ struct InfoTab: View {
                             .frame(width: 20, height: 20)
                             .foregroundStyle(Theme.Colors.primary1)
                     }
+                    .accessibilityIdentifier("EditLifeEventButton")
                 }
                 ForEach(viewModel.listLifeEvents, id: \.self) { lifeEvent in
                     InfoContent(label: lifeEvent.keys.first ?? "", value: lifeEvent.values.first ?? "", isLifeEvent: true)

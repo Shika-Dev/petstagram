@@ -59,6 +59,7 @@ class MockUserUseCases: UserUseCases {
 }
 
 class MockPostUseCase: PostUseCases {
+    var mockPosts: [PostEntity] = []
     var shouldThrowError = false
     
     func fetchPosts() async throws -> [petstagram.PostEntity] {
@@ -70,7 +71,10 @@ class MockPostUseCase: PostUseCases {
     }
     
     func fetchUserPosts() async throws -> [petstagram.PostEntity] {
-        return []
+        if shouldThrowError {
+            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Fetch User Post Test error"])
+        }
+        return mockPosts
     }
     
     func updateComments(id postId: String, comments list: [petstagram.CommentEntity]) async throws {
@@ -79,7 +83,7 @@ class MockPostUseCase: PostUseCases {
     
     func uploadPosts(image: UIImage, caption: String) async throws {
         if shouldThrowError {
-            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Test error"])
+            throw NSError(domain: "TestError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Test Upload Post error"])
         }
         // Simulate network delay
         try await Task.sleep(nanoseconds: 500_000_000)

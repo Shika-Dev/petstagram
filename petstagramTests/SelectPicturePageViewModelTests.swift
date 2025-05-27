@@ -9,6 +9,7 @@
 import XCTest
 @testable import petstagram
 
+@MainActor
 final class SelectPicturePageViewModelTests: XCTestCase {
     var sut: SelectPicturePageViewModel!
     var mockPostUseCase: MockPostUseCase!

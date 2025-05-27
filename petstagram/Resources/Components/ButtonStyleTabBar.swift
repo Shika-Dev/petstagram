@@ -39,6 +39,7 @@ struct TabBarButton: View {
             Image(imageName)
                 .renderingMode(.template)
                 .frame(width: 20, height: 20)
+                .accessibilityIdentifier(imageName)
             Text(label)
                 .font(Theme.Fonts.bodyRegular)
         }
@@ -47,5 +48,7 @@ struct TabBarButton: View {
         .background(isSelected ? Theme.Colors.primary1 : Theme.Colors.grey1)
         .foregroundStyle(isSelected ? .white : Theme.Colors.dark1)
         .clipShape(.capsule)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(label)
     }
 }

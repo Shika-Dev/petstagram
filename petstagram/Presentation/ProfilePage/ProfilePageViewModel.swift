@@ -33,12 +33,12 @@ final class ProfilePageViewModel: ObservableObject {
     
     @Published var posts: [PostEntity] = []
     
-    private let authStateManager: AuthStateManager
+    private let authStateManager: AuthStateManaging
     private let userDefaultsManager: UserDefaultsManager
     private let useCase: UserUseCases
     private let postUseCase: PostUseCases
     
-    init(authStateManager: AuthStateManager, useCase: UserUseCases, userDefaultsManager: UserDefaultsManager, postUseCase: PostUseCases) {
+    init(authStateManager: AuthStateManaging, useCase: UserUseCases, userDefaultsManager: UserDefaultsManager, postUseCase: PostUseCases) {
         self.authStateManager = authStateManager
         self.userDefaultsManager = userDefaultsManager
         self.useCase = useCase
