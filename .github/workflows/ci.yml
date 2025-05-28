@@ -50,7 +50,9 @@ jobs:
           file_to_build=$(echo $file_to_build | awk '{$1=$1;print}')
           xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" \
             -destination "platform=$platform,name=$device" \
-            -resultBundlePath TestResults.xcresult || TEST_FAILED=true
+            -resultBundlePath TestResults.xcresult || TEST_FAILED=true \
+            -parallel-testing-enabled NO \
+            -enableCodeCoverage YES \
 
       - name: Zip xcresult bundle
         if: always()
