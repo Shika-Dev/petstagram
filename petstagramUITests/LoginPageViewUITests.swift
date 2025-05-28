@@ -5,6 +5,7 @@ final class LoginPageUITests: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments.append("UITests")
         app.launch()
     }
     

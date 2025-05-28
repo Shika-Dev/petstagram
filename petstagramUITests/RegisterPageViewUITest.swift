@@ -12,6 +12,7 @@ final class RegisterPageUITests: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments.append("UITests")
         app.launch()
         if app.otherElements["NavigationBar"].exists == false {
             try navigateToRegisterPage()

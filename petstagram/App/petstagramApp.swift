@@ -12,8 +12,17 @@ import GoogleSignIn
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
+        if !isRunningUnitTests() {
+            FirebaseApp.configure()
+        }
         return true
+    }
+    
+    private func isRunningUnitTests() -> Bool {
+        let env = ProcessInfo.processInfo.environment
+        let isXCTest = env["XCTestConfigurationFilePath"]?.contains(".xctest") == true
+        let isUITest = ProcessInfo.processInfo.arguments.contains("UITests")
+        return isXCTest && !isUITest
     }
 }
 

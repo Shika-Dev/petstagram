@@ -5,6 +5,7 @@ final class SelectPicturePageUITests: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments.append("UITests")
         app.launch()
         
         let navBar = app.otherElements["NavigationBar"]

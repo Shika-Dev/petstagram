@@ -12,6 +12,7 @@ final class ContentViewUITest: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments.append("UITests")
         app.launch()
         
         // Login if not already authenticated

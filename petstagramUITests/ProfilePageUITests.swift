@@ -12,7 +12,7 @@ final class ProfilePageUITests: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
-        app.launchArguments = ["UI-Testing"]
+        app.launchArguments.append("UITests")
         app.launch()
         
         let navBar = app.otherElements["NavigationBar"]

@@ -5,7 +5,7 @@ final class HomePageUITests: XCTestCase {
     
     override func setUpWithError() throws {
         continueAfterFailure = false
-        app.launchArguments = ["UI-Testing"]
+        app.launchArguments.append("UITests")
         app.launch()
         
         // Login if not already authenticated
